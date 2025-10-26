@@ -11,6 +11,7 @@ Account::Account() {
 Account::Account(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo) {
 	setAll(_ID, _withdrawCount, _depositCount, _bal, _customerInfo);
 }
+
 void Account::setAll(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo) {
 	ID = _ID;
 	setWithdrawCount(_withdrawCount);
@@ -56,6 +57,11 @@ void Account::setBal(double _bal)
 		bal = 0;
 	}
 }
+void Account::setCustomerInfo(Customer* _customerInfo)
+{
+	customerInfo = _customerInfo;
+}
+
 int Account::getID() const
 {
 	return ID;
@@ -72,6 +78,7 @@ double Account::getBal() const
 {
 	return bal;
 }
+
 void Account::deposit(double _amount)
 {
 	if (_amount >= 0)
@@ -94,12 +101,12 @@ void Account::withdraw(double _amount)
 }
 void Account::printInfo()
 {
+	customerInfo->printInfo();
 	cout << "Account ID: " << ID << endl;
-	cout << "Balance: " << bal << endl;
+	cout << "Total Balance: " << bal << endl;
+	cout << "Savings: " << savings << endl;
+	cout << "Checking: " << checking << endl;
+	cout << "Debt: " << debt << endl;
 	cout << "Times deposited: " << depositCount << endl;
 	cout << "Times withdrawn: " << withdrawCount << endl;
-	customerInfo->printInfo();
-}
-void Account::increaseWithdrawCount() {
-	withdrawCount++;
 }

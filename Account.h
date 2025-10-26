@@ -7,7 +7,11 @@ using namespace std;
 
 class Account {
 	int ID, withdrawCount, depositCount;
-	double bal;
+	double bal, savings = 0, checking = 0, debt = 0; //New variables not implemented yet
+	/*"savings" and "checking" will be used for printInfo, it will just say how much of your balance is in savings and how much is in checking.
+	"debt" will be used for overdrafts. If the user is overdrawn, any deposited money will immediately cover the dept owed. 
+	How I think it'll work:
+		-*/
 	Customer* customerInfo;
 public:
 	Account();
@@ -18,6 +22,7 @@ public:
 	void setWithdrawCount(int _withdrawCount);
 	void setDepositCount(int _depositCount);
 	void setBal(double _bal);
+	void setCustomerInfo(Customer* _customerInfo);
 
 	int getID() const;
 	int getWithdrawCount() const;
@@ -27,6 +32,5 @@ public:
 	void deposit(double _amount);
 	void withdraw(double _amount);
 	void printInfo();
-	void increaseWithdrawCount();
 };
 #endif // !_ACCOUNT_
