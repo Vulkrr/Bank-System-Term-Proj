@@ -15,6 +15,7 @@ Customer::Customer(string _fname, string _lname, string _address, string _email,
 	email = _email;
 	setPhone(_phone);
 }
+
 void Customer::setAll(string _fname, string _lname, string _address, string _email, string _phone) {
 	setFname(_fname);
 	setLname(_lname);
@@ -42,6 +43,7 @@ void Customer::setPhone(string _phone) {
 		phoneNumber = "0000000000";
 	}
 }
+
 string Customer::getFname() const {
 	return fname;
 }

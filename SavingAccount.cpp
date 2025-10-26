@@ -10,6 +10,11 @@ SavingAccount::SavingAccount(int _ID, int _withdrawCount, int _depositCount, dou
 	setInterestRate(_interestRate);
 }
 
+void SavingAccount::setAll(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo, double _interestRate)
+{
+	Account::setAll(_ID, _withdrawCount, _depositCount, _bal, _customerInfo);
+	setInterestRate(_interestRate);
+}
 void SavingAccount::setInterestRate(double _interestRate)
 {
 	if (_interestRate >= 0)
@@ -20,11 +25,6 @@ void SavingAccount::setInterestRate(double _interestRate)
 	{
 		interestRate = 0;
 	}
-}
-void SavingAccount::setAll(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo, double _interestRate)
-{
-	Account::setAll(_ID, _withdrawCount, _depositCount, _bal, _customerInfo);
-	setInterestRate(_interestRate);
 }
 
 double SavingAccount::getInterestRate() const
@@ -37,7 +37,6 @@ void SavingAccount::payInterest()
 	double tempBal = getBal();
 	setBal(tempBal - (tempBal * interestRate - tempBal));
 }
-
 void SavingAccount::transfer(double _amount, SavingAccount & _destinationAccount)
 {
 	if (_amount <= _destinationAccount.getBal())
