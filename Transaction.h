@@ -24,6 +24,5 @@ class Transaction : public SavingAccount, public CheckingAccount {
 	bool overdraft; //If the transaction resulted in an overdraft, it will display info about that
 public:
 	Transaction();
-	Transaction(string _transactionType, double transactionAmount, double snapshotBalance, bool overdraft);
 };
 #endif // !_ACCOUNT_
