@@ -14,8 +14,6 @@ Step 2: Every time the user makes a transaction:
 	-Add the new transaction into the array.
 	-Delete the old array.
 This process can be put into a function in the transaction cpp file and called every time the user makes a withdrawal, deposit, or transfer.
-
-This lowkey makes the withdrawCounter and depositCounter useless so we can ask Sarraf if we are allowed to remove them
 */
 
 class Transaction : public SavingAccount, public CheckingAccount {
