@@ -12,11 +12,11 @@
 
 int main() {
 
-	const int customerLimit = 10, checkingAccLimit = 5, savingAccLimit = 5;
-	const double interestRate = 1.02, overdraftLimit = 50;
-	int menuOpt, accountOpt, transactionCount;
-	int checkingAccCount = 0, savingAccCount = 0;
-	string fname, lname, address, email, phoneNumber;
+	const int customerLimit = 10, checkingAccLimit = 5, savingAccLimit = 5; //Array limits
+	const double interestRate = 1.02, overdraftLimit = 50; 
+	int menuOpt, accountOpt; //Option inputs
+	int checkingAccCount = 0, savingAccCount = 0, transactionCount = 0; //Array counters
+	string fname, lname, address, email, phoneNumber; //Customer info inputs
 
 	Customer customerList[customerLimit];
 	CheckingAccount checkingAccList[checkingAccLimit];
