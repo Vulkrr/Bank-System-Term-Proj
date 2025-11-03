@@ -23,6 +23,26 @@ int main() {
 	SavingAccount savingAccList[savingAccLimit];
 	//Transaction* transactions = new Transaction[transactionCount]; //Dw abt this for now, refer to Transaction.h for info
 
+	
+	cout << "=====================EPIC BANK NAME=====================" << endl;
+	cout << "Welcome. Please enter the following information: " << endl;
+	cout << "Enter your first name: ";
+	cin >> fname;
+	customerList[0].setFname(fname);
+	cout << "Enter your last name: ";
+	cin >> fname;
+	customerList[0].setLname(lname);
+	cout << "Enter your address: ";
+	cin.ignore();
+	getline(cin, address);
+	customerList[0].setAddress(address);
+	cout << "Enter your email: ";
+	cin >> email;
+	customerList[0].setEmail(email);
+	cout << "Enter your phone number (digits only): ";
+	cin >> phoneNumber;
+	customerList[0].setPhone(phoneNumber);
+
 	do
 	{
 		cout << "======================================" << endl;
@@ -42,9 +62,7 @@ int main() {
 		{
 		case 1:
 			cout << "======================================" << endl;
-			cout << "Is the user an existing customer? (Y/N): ";
-
-
+			cout << "Is the user an existing customer? (Y/N): "
 			cout << "Select which type of account you would like to create: " << endl;
 			cout << "1. Saving account" << endl;
 			cout << "2. Checking account" << endl;
