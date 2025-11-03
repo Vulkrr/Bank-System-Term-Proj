@@ -23,9 +23,7 @@ int main() {
 	SavingAccount savingAccList[savingAccLimit];
 	//Transaction* transactions = new Transaction[transactionCount]; //Dw abt this for now, refer to Transaction.h for info
 
-	/*I'm honestly confused as to how Sarraf wants this customer thing to work, 
-	I'm not sure if he wants us to prompt the user to make multiple customer accounts or smth. The customerList array is throwing me off
-	He also never specifies if there is supposed to be a customer limit or if this is supposed to be dynamic memory allocation, I js don't know fr*/
+	
 	cout << "=====================EPIC BANK NAME=====================" << endl;
 	cout << "Welcome. Please enter the following information: " << endl;
 	cout << "Enter your first name: ";
@@ -64,6 +62,7 @@ int main() {
 		{
 		case 1:
 			cout << "======================================" << endl;
+			cout << "Is the user an existing customer? (Y/N): ";
 			cout << "Select which type of account you would like to create: " << endl;
 			cout << "1. Saving account" << endl;
 			cout << "2. Checking account" << endl;
