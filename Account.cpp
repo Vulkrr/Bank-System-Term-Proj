@@ -101,7 +101,8 @@ void Account::withdraw(double _amount)
 }
 void Account::printInfo()
 {
-	customerInfo->printInfo();
+	if (customerInfo != nullptr)
+		customerInfo->printInfo();
 	cout << "Account ID: " << ID << endl;
 	cout << "Total Balance: " << bal << endl;
 	cout << "Savings: " << savings << endl;
