@@ -16,13 +16,14 @@ int main() {
 	Customer customerList[customerLimit];
 	CheckingAccount checkingAccList[checkingAccLimit];
 	SavingAccount savingAccList[savingAccLimit];
+
 	//Transaction* transactions = new Transaction[transactionCount]; Not implemented yet, refer to Transaction.h for info
 	
 	//Indexes
 	int totalCustomerCount = 0, customerIndex = 0, checkingAccIndex = 0, savingAccIndex = 0, transactionIndex = 0;
 
 	//Flags
-	bool customerFound = false;
+	bool customerFound = false, existingCustomers = true, duplicateInfo = false;
 
 	//Input variables
 	int menuOpt, accountOpt, menuReturnOpt; 
@@ -44,6 +45,11 @@ int main() {
 		cin >> menuOpt;
 		while (menuOpt < 1 || menuOpt > 5) //Input validation
 		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
 			cout << "Invalid option. Please enter an option 1-5: ";
 			cin >> menuOpt;
 		}
@@ -53,10 +59,22 @@ int main() {
 		case 1: //Option 1: Create an account
 			system("cls");
 			cout << "----------------------------------------" << endl;
+
+			if (totalCustomerCount == 0)
+			{
+				existingCustomers = false;
+
+			}
+
 			cout << "Is the user an existing customer? (Y/N): ";
 			cin >> existingOpt;
 			while (existingOpt != 'Y' && existingOpt != 'y' && existingOpt != 'N' && existingOpt != 'n') //Input validation
 			{
+				if (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				}
 				cout << "Invalid option." << endl;
 				cout << "Is the user an existing customer? (Y/N): ";
 				cin >> existingOpt;
@@ -68,29 +86,63 @@ int main() {
 				cout << "Please enter the following information for the new customer: " << endl;
 				cout << "Enter customer first name: ";
 				cin >> fname;
-				customerList[totalCustomerCount].setFname(fname);
 				cout << "Enter customer last name: ";
 				cin >> lname;
-				customerList[totalCustomerCount].setLname(lname);
-				cout << "Enter customer address: ";
-				cin.ignore();
-				getline(cin, address);
-				//Ensure there are no duplicates here
-				customerList[totalCustomerCount].setAddress(address);
-				cout << "Enter customer email: ";
-				cin >> email;
-				//Ensure there are no duplicates here
-				customerList[totalCustomerCount].setEmail(email);
-				cout << "Enter customer phone number (digits only): ";
-				cin >> phoneNumber;
-				//Ensure there are no duplicates here
-				customerList[totalCustomerCount].setPhone(phoneNumber);
+				do //Ensure there are no duplicates
+				{
+					duplicateInfo = false;
+					cout << "Enter customer address: ";
+					cin.ignore();
+					getline(cin, address);
+					for (int i = 0; i < totalCustomerCount; i++) 
+					{
+						if (address == customerList[i].getAddress())
+						{
+							duplicateInfo = true;
+							cout << "Error: Duplicate address already exists." << endl;
+							break;
+						}
+					}
+				} while (duplicateInfo);
+				do //Ensure there are no duplicates
+				{
+					duplicateInfo = false;
+					cout << "Enter customer phone number (digits only): ";
+					cin >> phoneNumber;
+					for (int i = 0; i < totalCustomerCount; i++)
+					{
+						if (phoneNumber == customerList[i].getPhone())
+						{
+							duplicateInfo = true;
+							cout << "Error: Duplicate phone number already exists." << endl;
+							break;
+						}
+					}
+				} while (duplicateInfo);
+				do //Ensure there are no duplicates
+				{
+					duplicateInfo = false;
+					cout << "Enter customer email: ";
+					cin >> email;
+					for (int i = 0; i < totalCustomerCount; i++)
+					{
+						if (email == customerList[i].getEmail())
+						{
+							duplicateInfo = true;
+							cout << "Error: Duplicate email already exists." << endl;
+							break;
+						}
+					}
+				} while (duplicateInfo);
+				
+				customerList[totalCustomerCount].setAll(fname, lname, address, phoneNumber, email);
 				cout << "Customer successfully added to system." << endl;
 				totalCustomerCount++;
 			}
 			else //If the user is an existing customer, enter their credentials
 			{
-				cout << "Please enter the following credentials:";
+				cout << "----------------------------------------" << endl;
+				cout << "Please enter the following credentials:" << endl;
 				cout << "Enter customer last name: ";
 				cin >> lname;
 				cout << "Enter customer phone number (digits only): ";
@@ -116,6 +168,11 @@ int main() {
 
 			while (accountOpt < 1 || accountOpt > 2)
 			{
+				if (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				}
 				cout << "Invalid option. Please enter an option 1-2: ";
 				cin >> accountOpt;
 			}
@@ -174,6 +231,11 @@ int main() {
 				cin >> menuReturnOpt;
 				while (menuReturnOpt < 1 || menuReturnOpt > 2) //Input validation
 				{
+					if (cin.fail())
+					{
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					}
 					cout << "Invalid option." << endl;
 					cout << "Press 1 to try again or 2 to return to main menu: ";
 					cin >> menuReturnOpt;

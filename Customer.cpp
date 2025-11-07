@@ -7,6 +7,7 @@ Customer::Customer() {
 	lname = "";
 	address = "";
 	phoneNumber = "";
+	formattedPhoneNumber = "";
 	email = "";
 }
 Customer::Customer(string _fname, string _lname, string _address, string _phone, string _email) {
@@ -40,6 +41,7 @@ void Customer::setPhone(string _phone) {
 	else {
 		phoneNumber = "0000000000";
 	}
+	formattedPhoneNumber = phoneNumber.substr(0, 3) + "-" + phoneNumber.substr(3, 3) + "-" + phoneNumber.substr(6);
 }
 void Customer::setEmail(string _email) {
 	email = _email;
@@ -64,10 +66,10 @@ string Customer::getEmail() const {
 void Customer::printInfoFull() {
 	cout << "Name: " << fname << " " << lname << endl;
 	cout << "Address: " << address << endl;
-	cout << "Phone #: " << phoneNumber.substr(0,2) << "-" << phoneNumber.substr(3, 5) << "-" << phoneNumber.substr(6) << endl;
+	cout << "Phone #: " << phoneNumber.substr(0, 3) << "-" << phoneNumber.substr(3, 3) << left << "-" << phoneNumber.substr(7) << endl;
 	cout << "Email: " << email << endl;
 }
 
 void Customer::printInfoPartial() {
-	cout << left << setw(20) << fname << left << setw(20) << lname << left << setw(30) << address.substr(0, 15) << left << setw(20) << phoneNumber << left << setw(20) << email << endl;
+	cout << left << setw(20) << fname << left << setw(20) << lname << left << setw(30) << address.substr(0, 15) << left << setw(20) << formattedPhoneNumber << left << setw(20) << email << endl;
 }

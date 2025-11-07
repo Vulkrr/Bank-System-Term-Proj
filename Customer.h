@@ -5,7 +5,7 @@
 using namespace std;
 
 class Customer {
-	string fname, lname, address, email, phoneNumber;
+	string fname, lname, address, email, phoneNumber, formattedPhoneNumber;
 public:
 	Customer();
 	Customer(string _fname, string _lname, string _address, string _email, string _phone);

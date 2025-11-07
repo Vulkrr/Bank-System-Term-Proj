@@ -25,25 +25,24 @@ void CheckingAccount::setAll(int _ID, double _bal, Customer* _customerInfo, doub
 }
 void CheckingAccount::withdraw(double _amount) {
 	if (_amount >= 0)
+	{
 		if (bal >= _amount)
 		{
-			tempBal -= _amount;
-			setBal(tempBal);
+			bal -= _amount;
 			cout << "You have successfully withdrawn $" << _amount << "." << endl;
 		}
 		else
 		{
-			if (abs(tempBal - _amount) <= overdraftLimit)
+			if (abs(bal - _amount) <= overdraftLimit)
 			{
-				double overdraftAmount = abs(tempBal - _amount);
-				tempBal -= _amount;
-				tempBal -= 20; //Overdraft fee
-				setBal(tempBal);
+				double overdraftAmount = abs(bal - _amount);
+				bal -= _amount;
+				bal -= 20; //Overdraft fee
 				setOverdraftLimit(getOverdraftLimit() - overdraftAmount);
 				setWithdrawCount(getWithdrawCount() + 1);
 				cout << "You have successfully withdrawn $" << _amount << " with an overdraft of " << overdraftAmount << "." << endl;
 				cout << "A $20 overdraft fee has been charged to your account." << endl;
-				cout << "Balance: " << getBal() << endl;
+				cout << "Balance: " << bal << endl;
 			}
 			else
 			{
