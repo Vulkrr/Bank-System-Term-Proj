@@ -42,9 +42,9 @@ int main() {
 		cout << "4. View all customers" << endl;
 		cout << "5. Exit program" << endl;
 		cin >> menuOpt;
-		while (menuOpt < 1 || menuOpt > 4) //Input validation
+		while (menuOpt < 1 || menuOpt > 5) //Input validation
 		{
-			cout << "Invalid option. Please enter an option 1-4: ";
+			cout << "Invalid option. Please enter an option 1-5: ";
 			cin >> menuOpt;
 		}
 
@@ -205,6 +205,10 @@ int main() {
 
 			if (customerFound == true)
 			{
+				cout << "-------------------------------------------------------------------------------------------------" << endl;
+				cout << left << setw(20) << "First Name" << left << setw(20) << "Last Name" << left << setw(30) << "Address" << left << setw(20) << "Phone #" << left << setw(20) << "Email" << endl;
+				cout << "-------------------------------------------------------------------------------------------------" << endl;
+				customerList[i]
 				savingAccList[savingAccIndex].printInfo();
 				cout << "Press any key to return to menu: ";
 				cin.ignore();
