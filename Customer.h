@@ -23,6 +23,7 @@ public:
 	string getPhone() const;
 	string getEmail() const;
 
-	void printInfo();
+	void printInfoFull();
+	void printInfoPartial();
 };
 #endif // !_CUSTOMER_

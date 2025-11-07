@@ -7,10 +7,11 @@ using namespace std;
 
 class Account {
 	int ID, withdrawCount, depositCount;
-	double bal, savings = 0, checking = 0; //New variables not implemented yet
+	 //New variables not implemented yet
 	//"savings" and "checking" will be used for printInfo, it will just say how much of your balance is in savings and how much is in checking.
-	
 	Customer* customerInfo;
+protected:
+	double bal, savings = 0, checking = 0;
 public:
 	Account();
 	Account(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo);

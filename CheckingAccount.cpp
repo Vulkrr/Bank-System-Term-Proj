@@ -25,9 +25,7 @@ void CheckingAccount::setAll(int _ID, double _bal, Customer* _customerInfo, doub
 }
 void CheckingAccount::withdraw(double _amount) {
 	if (_amount >= 0)
-	{
-		double tempBal = getBal();
-		if (tempBal >= _amount)
+		if (bal >= _amount)
 		{
 			tempBal -= _amount;
 			setBal(tempBal);

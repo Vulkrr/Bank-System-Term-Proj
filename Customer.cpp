@@ -61,8 +61,13 @@ string Customer::getEmail() const {
 	return email;
 }
 
+void Customer::printInfoFull() {
+	cout << "Name: " << fname << " " << lname << endl;
+	cout << "Address: " << address << endl;
+	cout << "Phone #: " << phoneNumber.substr(0,2) << "-" << phoneNumber.substr(3, 5) << "-" << phoneNumber.substr(6) << endl;
+	cout << "Email: " << email << endl;
+}
 
-
-void Customer::printInfo() {
-	cout << left << setw(20) << fname << left << setw(20) << lname << left << setw(30) << address.substr(0,15) << left << setw(20) << phoneNumber << left << setw(20) << email << endl;
+void Customer::printInfoPartial() {
+	cout << left << setw(20) << fname << left << setw(20) << lname << left << setw(30) << address.substr(0, 15) << left << setw(20) << phoneNumber << left << setw(20) << email << endl;
 }

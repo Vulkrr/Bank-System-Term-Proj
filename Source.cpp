@@ -75,10 +75,6 @@ int main() {
 				cout << "Enter customer address: ";
 				cin.ignore();
 				getline(cin, address);
-				for (int i = 0; i < totalCustomerCount; i++)
-				{
-					if (customerList[i].getAddress)
-				}
 				//Ensure there are no duplicates here
 				customerList[totalCustomerCount].setAddress(address);
 				cout << "Enter customer email: ";
@@ -153,6 +149,7 @@ int main() {
 		case 3: //Option 3: View personal account info
 			system("cls");
 			cout << "---------------------------------------" << endl;
+			cout << "Please select one of the following options: " << endl;
 			cout << "Please enter the following credentials: " << endl;
 			cout << "Enter customer last name: ";
 			cin >> lname;
@@ -211,8 +208,6 @@ int main() {
 			if (customerFound == true)
 			{
 				cout << "-------------------------------------------------------------------------------------------------" << endl;
-				
-				customerList[customerIndex].
 				savingAccList[savingAccIndex].printInfo();
 				cout << "Press any key to return to menu: ";
 				cin.ignore();
@@ -235,7 +230,7 @@ int main() {
 
 				for (int i = 0; i < totalCustomerCount; i++)
 				{
-					customerList[i].printInfo();
+					customerList[i].printInfoPartial();
 				}
 			}
 
