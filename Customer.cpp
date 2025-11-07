@@ -61,6 +61,8 @@ string Customer::getEmail() const {
 	return email;
 }
 
+
+
 void Customer::printInfo() {
 	cout << left << setw(20) << fname << left << setw(20) << lname << left << setw(30) << address.substr(0,15) << left << setw(20) << phoneNumber << left << setw(20) << email << endl;
 }

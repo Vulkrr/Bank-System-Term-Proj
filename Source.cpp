@@ -75,6 +75,10 @@ int main() {
 				cout << "Enter customer address: ";
 				cin.ignore();
 				getline(cin, address);
+				for (int i = 0; i < totalCustomerCount; i++)
+				{
+					if (customerList[i].getAddress)
+				}
 				//Ensure there are no duplicates here
 				customerList[totalCustomerCount].setAddress(address);
 				cout << "Enter customer email: ";
@@ -160,6 +164,7 @@ int main() {
 				if (customerList[i].getLname() == lname && customerList[i].getPhone() == phoneNumber)
 				{
 					customerFound = true;
+					customerIndex = i;
 					cout << "Customer found." << endl;
 					break;
 				}
@@ -206,9 +211,8 @@ int main() {
 			if (customerFound == true)
 			{
 				cout << "-------------------------------------------------------------------------------------------------" << endl;
-				cout << left << setw(20) << "First Name" << left << setw(20) << "Last Name" << left << setw(30) << "Address" << left << setw(20) << "Phone #" << left << setw(20) << "Email" << endl;
-				cout << "-------------------------------------------------------------------------------------------------" << endl;
-				customerList[i]
+				
+				customerList[customerIndex].
 				savingAccList[savingAccIndex].printInfo();
 				cout << "Press any key to return to menu: ";
 				cin.ignore();
