@@ -1,27 +1,28 @@
 #include "Customer.h"
 #include <iostream>
+#include <iomanip>
 
 Customer::Customer() {
 	fname = "";
 	lname = "";
 	address = "";
-	email = "";
 	phoneNumber = "";
+	email = "";
 }
-Customer::Customer(string _fname, string _lname, string _address, string _email, string _phone) {
+Customer::Customer(string _fname, string _lname, string _address, string _phone, string _email) {
 	fname = _fname;
 	lname = _lname;
 	address = _address;
-	email = _email;
 	setPhone(_phone);
+	email = _email;
 }
 
-void Customer::setAll(string _fname, string _lname, string _address, string _email, string _phone) {
+void Customer::setAll(string _fname, string _lname, string _address, string _phone, string _email) {
 	setFname(_fname);
 	setLname(_lname);
 	setAddress(_address);
-	setEmail(_email);
 	setPhone(_phone);
+	setEmail(_email);
 }
 void Customer::setFname(string _fname) {
 	fname = _fname;
@@ -32,9 +33,6 @@ void Customer::setLname(string _lname) {
 void Customer::setAddress(string _address) {
 	address = _address;
 }
-void Customer::setEmail(string _email) {
-	email = _email;
-}
 void Customer::setPhone(string _phone) {
 	if (_phone.length() == 10) {
 		phoneNumber = _phone;
@@ -42,6 +40,9 @@ void Customer::setPhone(string _phone) {
 	else {
 		phoneNumber = "0000000000";
 	}
+}
+void Customer::setEmail(string _email) {
+	email = _email;
 }
 
 string Customer::getFname() const {
@@ -53,14 +54,13 @@ string Customer::getLname() const {
 string Customer::getAddress() const {
 	return address;
 }
-string Customer::getEmail() const {
-	return email;
-}
 string Customer::getPhone() const {
 	return phoneNumber;
 }
+string Customer::getEmail() const {
+	return email;
+}
+
 void Customer::printInfo() {
-	cout << "Customer:" << fname << " " << lname << endl <<
-		"Address: " << address << endl <<
-		"Contact through email: " << email << ", or call at: " << phoneNumber << endl;
+	cout << left << setw(20) << fname << left << setw(20) << lname << left << setw(30) << address << left << setw(20) << phoneNumber << left << setw(20) << email << endl;
 }

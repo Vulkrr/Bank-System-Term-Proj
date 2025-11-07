@@ -101,13 +101,14 @@ void Account::withdraw(double _amount)
 }
 void Account::printInfo()
 {
+
 	if (customerInfo != nullptr)
 		customerInfo->printInfo();
+	cout << "---------------" << endl;
 	cout << "Account ID: " << ID << endl;
-	cout << "Total Balance: " << bal << endl;
-	cout << "Savings: " << savings << endl;
-	cout << "Checking: " << checking << endl;
-	cout << "Debt: " << debt << endl;
+	cout << "Balance: " << "$" << bal << endl;
+	cout << "Savings: " << "$" << savings << endl;
+	cout << "Checking: " << "$" << checking << endl;
 	cout << "Times deposited: " << depositCount << endl;
 	cout << "Times withdrawn: " << withdrawCount << endl;
 }
