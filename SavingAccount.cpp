@@ -3,16 +3,19 @@
 
 SavingAccount::SavingAccount()
 {
+	accName = "";
 	interestRate = 0;
 }
-SavingAccount::SavingAccount(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo, double _interestRate) : Account(_ID, _withdrawCount, _depositCount, _bal, _customerInfo)
+SavingAccount::SavingAccount(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo, string _accName, double _interestRate) : Account(_ID, _withdrawCount, _depositCount, _bal, _customerInfo)
 {
+	accName = _accName;
 	setInterestRate(_interestRate);
 }
 
-void SavingAccount::setAll(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo, double _interestRate)
+void SavingAccount::setAll(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo, string _accName, double _interestRate)
 {
 	Account::setAll(_ID, _withdrawCount, _depositCount, _bal, _customerInfo);
+	accName = _accName;
 	setInterestRate(_interestRate);
 }
 void SavingAccount::setInterestRate(double _interestRate)

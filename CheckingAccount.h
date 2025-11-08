@@ -6,12 +6,14 @@
 using namespace std;
 
 class CheckingAccount :public Account {
+	string accName;
 	double overdraftLimit;
 public:
 	CheckingAccount();
-	CheckingAccount(int _ID, double _bal, Customer* _customerInfo, double _overdraftLimit);
+	CheckingAccount(int _ID, double _bal, Customer* _customerInfo, string _accName, double _overdraftLimit);
 
-	void setAll(int _ID, double _bal, Customer* _customerInfo, double _overdraftLimit);
+	void setAll(int _ID, double _bal, Customer* _customerInfo, string _accName, double _overdraftLimit);
+	void setAccName(string _accName);
 	void setOverdraftLimit(double _limit);
 
 	double getOverdraftLimit() const;
