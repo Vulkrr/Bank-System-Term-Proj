@@ -11,7 +11,7 @@ class Account {
 	//"savings" and "checking" will be used for printInfo, it will just say how much of your balance is in savings and how much is in checking.
 	Customer* customerInfo;
 protected:
-	double bal, savings = 0, checking = 0;
+	double bal, savings, checking;
 public:
 	Account();
 	Account(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo);
