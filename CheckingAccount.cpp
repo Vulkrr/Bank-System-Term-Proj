@@ -1,26 +1,19 @@
 #include "CheckingAccount.h"
 #include <iostream>
 
-
-
-
-CheckingAccount::CheckingAccount() :Account() {
+CheckingAccount::CheckingAccount() : Account() {
 	overdraftLimit = 0;
 }
-CheckingAccount::CheckingAccount(int _ID, double _bal, Customer* _customerInfo, string _accName, double _overdraftLimit) {
-
-	setAll(_ID, _bal, _customerInfo, _accName, _overdraftLimit);
-}
-
-void CheckingAccount::setAll(int _ID, double _bal, Customer* _customerInfo, string _accName, double _overdraftLimit) {
-	Account::setID(_ID);
-	Account::setBal(_bal);
-	accName = _accName;
+CheckingAccount::CheckingAccount(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo,
+	 double _overdraftLimit) : Account (_ID, _withdrawCount, _depositCount, _transferCount, _bal, _accName, _customerInfo)
+{
 	setOverdraftLimit(_overdraftLimit);
 }
-void CheckingAccount::setAccName(string _accName)
+
+void CheckingAccount::setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo,  double _overdraftLimit)
 {
-	accName = _accName;
+	Account::setAll(_ID, _withdrawCount, _depositCount, _transferCount, _bal, _accName, _customerInfo);
+	setOverdraftLimit(_overdraftLimit);
 }
 void CheckingAccount::setOverdraftLimit(double _overdraftlimit) {
 	if (_overdraftlimit < 0) {
@@ -31,10 +24,6 @@ void CheckingAccount::setOverdraftLimit(double _overdraftlimit) {
 	}
 }
 
-string CheckingAccount::getAccName() const
-{
-	return accName;
-}
 double CheckingAccount::getOverdraftLimit() const {
 	return overdraftLimit;
 }

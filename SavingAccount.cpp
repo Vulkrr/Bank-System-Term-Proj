@@ -3,19 +3,16 @@
 
 SavingAccount::SavingAccount()
 {
-	accName = "";
 	interestRate = 0;
 }
-SavingAccount::SavingAccount(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo, string _accName, double _interestRate) : Account(_ID, _withdrawCount, _depositCount, _bal, _customerInfo)
+SavingAccount::SavingAccount(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo,  double _interestRate) : Account(_ID, _withdrawCount, _depositCount, _transferCount, _bal, _accName, _customerInfo)
 {
-	accName = _accName;
 	setInterestRate(_interestRate);
 }
 
-void SavingAccount::setAll(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo, string _accName, double _interestRate)
+void SavingAccount::setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo, double _interestRate)
 {
-	Account::setAll(_ID, _withdrawCount, _depositCount, _bal, _customerInfo);
-	accName = _accName;
+	Account::setAll(_ID, _withdrawCount, _depositCount, _transferCount, _bal, _accName, _customerInfo);
 	setInterestRate(_interestRate);
 }
 void SavingAccount::setInterestRate(double _interestRate)
@@ -30,10 +27,7 @@ void SavingAccount::setInterestRate(double _interestRate)
 	}
 }
 
-string SavingAccount::getAccName() const
-{
-	return accName;
-}
+
 double SavingAccount::getInterestRate() const
 {
 	return interestRate;

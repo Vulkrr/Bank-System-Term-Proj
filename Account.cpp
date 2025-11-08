@@ -9,16 +9,17 @@ Account::Account() {
 	bal = 0;
 	customerInfo = nullptr;
 }
-Account::Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, Customer* _customerInfo) {
-	setAll(_ID, _withdrawCount, _depositCount, _transferCount, _bal, _customerInfo);
+Account::Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo) {
+	setAll(_ID, _withdrawCount, _depositCount, _transferCount, _bal, _accName, _customerInfo);
 }
 
-void Account::setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, Customer* _customerInfo) {
+void Account::setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo) {
 	ID = _ID;
 	setWithdrawCount(_withdrawCount);
 	setDepositCount(_depositCount);
 	setTransferCount(_transferCount);
 	setBal(_bal);
+	setAccName(_accName);
 	customerInfo = _customerInfo;
 }
 void Account::setID(int _ID)
@@ -70,6 +71,10 @@ void Account::setBal(double _bal)
 		bal = 0;
 	}
 }
+void Account::setAccName(string _accName)
+{
+	accName = _accName;
+}
 void Account::setCustomerInfo(Customer* _customerInfo)
 {
 	customerInfo = _customerInfo;
@@ -90,6 +95,14 @@ int Account::getDepositCount() const
 double Account::getBal() const
 {
 	return bal;
+}
+string Account::getAccName() const
+{
+	return accName;
+}
+Customer* Account::getCustomerInfo() const
+{
+	return customerInfo;
 }
 
 void Account::deposit(double _amount)
