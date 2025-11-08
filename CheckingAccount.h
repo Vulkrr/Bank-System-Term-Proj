@@ -16,6 +16,7 @@ public:
 	void setAccName(string _accName);
 	void setOverdraftLimit(double _limit);
 
+	string getAccName() const;
 	double getOverdraftLimit() const;
 	
 	void withdraw(double _amount);

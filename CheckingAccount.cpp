@@ -31,6 +31,10 @@ void CheckingAccount::setOverdraftLimit(double _overdraftlimit) {
 	}
 }
 
+string CheckingAccount::getAccName() const
+{
+	return accName;
+}
 double CheckingAccount::getOverdraftLimit() const {
 	return overdraftLimit;
 }

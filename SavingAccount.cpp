@@ -30,6 +30,10 @@ void SavingAccount::setInterestRate(double _interestRate)
 	}
 }
 
+string SavingAccount::getAccName() const
+{
+	return accName;
+}
 double SavingAccount::getInterestRate() const
 {
 	return interestRate;
