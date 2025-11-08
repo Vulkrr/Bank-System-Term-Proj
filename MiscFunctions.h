@@ -7,6 +7,5 @@
 #include "Account.h"
 using namespace std;
 
-void receiveCustomerInfo();
 
 #endif // !_MISCFUNCTIONS
