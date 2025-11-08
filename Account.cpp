@@ -5,17 +5,19 @@ Account::Account() {
 	ID = 0;
 	withdrawCount = 0;
 	depositCount = 0;
+	transferCount = 0;
 	bal = 0;
 	customerInfo = nullptr;
 }
-Account::Account(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo) {
-	setAll(_ID, _withdrawCount, _depositCount, _bal, _customerInfo);
+Account::Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, Customer* _customerInfo) {
+	setAll(_ID, _withdrawCount, _depositCount, _transferCount, _bal, _customerInfo);
 }
 
-void Account::setAll(int _ID, int _withdrawCount, int _depositCount, double _bal, Customer* _customerInfo) {
+void Account::setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, Customer* _customerInfo) {
 	ID = _ID;
 	setWithdrawCount(_withdrawCount);
 	setDepositCount(_depositCount);
+	setTransferCount(_transferCount);
 	setBal(_bal);
 	customerInfo = _customerInfo;
 }
@@ -44,6 +46,17 @@ void Account::setDepositCount(int _depositCount)
 	else
 	{
 		depositCount = 0;
+	}
+}
+void Account::setTransferCount(int _transferCount)
+{
+	if (_transferCount >= 0)
+	{
+		transferCount = _transferCount;
+	}
+	else
+	{
+		transferCount = 0;
 	}
 }
 void Account::setBal(double _bal)
@@ -110,4 +123,5 @@ void Account::printInfo()
 	cout << "Checking: " << "$" << checking << endl;
 	cout << "Times deposited: " << depositCount << endl;
 	cout << "Times withdrawn: " << withdrawCount << endl;
+	cout << "Times transferred: " << transferCount << endl;
 }

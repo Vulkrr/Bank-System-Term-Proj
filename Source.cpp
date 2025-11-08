@@ -407,7 +407,7 @@ int main() {
 								}
 								cout << "--------------------------------------------------------------" << endl;
 
-								cout << "Select an account to deposit from: ";  //Select a checking account
+								cout << "Select an account to deposit to: ";  //Select a checking account
 								cin >> checkingAccOpt;
 								while (checkingAccOpt < 1 || checkingAccOpt >= checkingAccCount) //Input validation
 								{
@@ -432,9 +432,24 @@ int main() {
 									cin >> depositAmnt;
 								}
 
-								checkingAccList[checkingAccIndex].setBal(checkingAccList[checkingAccIndex].getBal() + depositAmnt); //Deposit money
+								cout << "Are you sure you want to deposit $" << withdrawAmnt << " to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
+								cin >> confirmOpt;
 
-								cout << "Successfully deposited $" << depositAmnt << " into checking." << endl << endl;
+								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
+								{
+									cout << "Invalid response. Please selection an option Y/N: ";
+									cin >> confirmOpt;
+								}
+
+								if (confirmOpt == 'Y' || confirmOpt == 'y')
+								{
+									savingAccList[savingAccIndex].setBal(savingAccList[savingAccIndex].getBal() - withdrawAmnt); //Deposit money
+									cout << "Successfully withdrew $" << withdrawAmnt << " from \"" << savingAccList[savingAccIndex].getAccName() << "\"." << endl << endl;
+									savingAccList[0].setWithdrawCount(savingAccList[0].getWithdrawCount() + 1); //Increase deposit counter
+								}
+
+								cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
+								cin >> menuReturnOpt;
 							}
 							else
 							{
@@ -473,12 +488,25 @@ int main() {
 									cin >> depositAmnt;
 								}
 
-								savingAccList[savingAccIndex].setBal(savingAccList[savingAccIndex].getBal() + depositAmnt); //Deposit money
+								cout << "Are you sure you want to deposit $" << withdrawAmnt << " to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
+								cin >> confirmOpt;
 
-								cout << "Successfully deposited $" << depositAmnt << " into savings." << endl << endl;
+								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
+								{
+									cout << "Invalid response. Please selection an option Y/N: ";
+									cin >> confirmOpt;
+								}
+
+								if (confirmOpt == 'Y' || confirmOpt == 'y')
+								{
+									savingAccList[savingAccIndex].setBal(savingAccList[savingAccIndex].getBal() - withdrawAmnt); //Deposit money
+									cout << "Successfully withdrew $" << withdrawAmnt << " from \"" << savingAccList[savingAccIndex].getAccName() << "\"." << endl << endl;
+									savingAccList[0].setDepositCount(savingAccList[0].getDepositCount() + 1); //Increase deposit counter
+								}
+
+								cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
+								cin >> menuReturnOpt;
 							}
-
-							savingAccList[0].setDepositCount(savingAccList[0].getDepositCount() + 1); //Increase deposit counter
 						}
 						else if (subMenuOpt == 2) //WITHDRAW
 						{
@@ -543,9 +571,24 @@ int main() {
 										cin >> withdrawAmnt;
 									}
 
-									checkingAccList[checkingAccIndex].setBal(checkingAccList[checkingAccIndex].getBal() - withdrawAmnt); //Withdraw money
+									cout << "Are you sure you want to withdraw $" << withdrawAmnt << " from \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
+									cin >> confirmOpt;
 
-									cout << "Successfully withdrew $" << withdrawAmnt << " from checking." << endl << endl;
+									while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
+									{
+										cout << "Invalid response. Please selection an option Y/N: ";
+										cin >> confirmOpt;
+									}
+
+									if (confirmOpt == 'Y' || confirmOpt == 'y')
+									{
+										checkingAccList[checkingAccIndex].setBal(checkingAccList[checkingAccIndex].getBal() - withdrawAmnt); //Withdraw money
+										cout << "Successfully withdrew $" << withdrawAmnt << " from \"" << checkingAccList[checkingAccIndex].getAccName() << "\"." << endl << endl;
+										checkingAccList[0].setWithdrawCount(checkingAccList[0].getWithdrawCount() + 1); //Increase withdraw counter
+									}
+
+									cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
+									cin >> menuReturnOpt;
 								}
 								else
 								{
@@ -602,7 +645,6 @@ int main() {
 
 									cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
 									cin >> menuReturnOpt;
-
 								}
 							}
 						}
