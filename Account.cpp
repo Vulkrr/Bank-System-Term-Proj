@@ -153,7 +153,7 @@ void Account::printInfo()
 
 void Account::getLoan(double _loan){
 	if (_loan > 0) {
-	*this.bal += _loan;
+	bal += _loan;
 	}
 	else {
 	cout << "You have entered an incorrect amount for your loan." << endl;
