@@ -150,3 +150,12 @@ void Account::printInfo()
 	cout << "Times withdrawn: " << withdrawCount << endl;
 	cout << "Times transferred: " << transferCount << endl;
 }
+
+void Account::getLoan(double _loan){
+	if (_loan > 0) {
+	*this.bal += _loan;
+	}
+	else {
+	cout << "You have entered an incorrect amount for your loan." << endl;
+	}
+}
