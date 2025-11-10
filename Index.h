@@ -9,5 +9,4 @@ savingAccCount = 0, savingAccIndex = 0,
 transferPullIndex = 0, transferPushIndex = 0,
 transactionCount = 0;
 
-
 #endif _INDEX_

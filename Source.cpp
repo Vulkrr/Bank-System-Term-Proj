@@ -4,9 +4,10 @@
 #include "SavingAccount.h"
 #include "Transaction.h"
 #include "MiscFunctions.h"
+#include "Index.h"
 #include <iomanip>
 #include <vector>
-#include "Index.h"
+
 //Finish implementing transfer function
 //Start working on transaction history
 
