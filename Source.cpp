@@ -287,7 +287,7 @@ int main() {
 					cout << "Enter a name for this account: ";
 					cin.ignore();
 					getline(cin, accName);
-					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, &customerList[customerIndex], accName, interestRate); //Saving account creation
+					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex], interestRate); //Saving account creation
 					cout << "You have successfully created a saving account named " << "\"" << accName << "\"." << endl;
 					savingAccCount++;
 				}
