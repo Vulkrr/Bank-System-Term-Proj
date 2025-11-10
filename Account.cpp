@@ -156,6 +156,6 @@ void Account::getLoan(double _loan){
 	bal += _loan;
 	}
 	else {
-	cout << "You have entered an incorrect amount for your loan." << endl;
+	cout << "Error: Cannot enter a negative amount for your loan." << endl;
 	}
 }
