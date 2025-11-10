@@ -38,17 +38,3 @@ void SavingAccount::payInterest()
 	double tempBal = getBal();
 	setBal(tempBal - (tempBal * interestRate - tempBal));
 }
-void SavingAccount::transfer(double _amount, SavingAccount & _destinationAccount)
-{
-	if (_amount <= _destinationAccount.getBal())
-	{
-		double tempBal = getBal();
-		double tempDestinationBal = _destinationAccount.getBal();
-		setBal(tempBal - _amount);
-		_destinationAccount.setBal(tempDestinationBal + tempBal);
-	}
-	else
-	{
-		cout << "You do not have enough to funds to make this transaction." << endl;
-	}
-}
