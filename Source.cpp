@@ -7,6 +7,8 @@
 #include <iomanip>
 #include <vector>
 #include "Index.h"
+//Finish implementing transfer function
+//Start working on transaction history
 
 int main() {
 
@@ -917,8 +919,7 @@ int main() {
 
 										if (confirmOpt == 'Y' || confirmOpt == 'y')
 										{
-											savingAccList[transferPullIndex].setBal(savingAccList[transferPullIndex].getBal() - transferAmnt); //Pull money out of old account
-											checkingAccList[transferPushIndex].setBal(checkingAccList[transferPushIndex].getBal() + transferAmnt); //Push money in new account
+											checkingAccList[transferPullIndex].transfer(transferAmnt, checkingAccList[transferPushIndex]); //Transfer
 										}
 										else
 										{
@@ -974,68 +975,69 @@ int main() {
 									}
 								}
 							}
-						} else if (subMenuOpt ==4){
+						} 
+						else if (subMenuOpt ==4){
+						{
+							system("cls");
+
+							cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
+							cout << "--------------------------------------------------------------" << endl;
+							for (int i = 0; i < checkingAccCount; i++)
 							{
-								system("cls");
+								cout << i + 1 << ". " << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
+							}
+							cout << "--------------------------------------------------------------" << endl;
 
-								cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
-								cout << "--------------------------------------------------------------" << endl;
-								for (int i = 0; i < checkingAccCount; i++)
+							cout << "Select an account to add a loan to: ";  //Select a checking account
+							cin >> checkingAccOpt;
+							while (checkingAccOpt < 1 || checkingAccOpt >= checkingAccCount) //Input validation
+							{
+								if (cin.fail())
 								{
-									cout << i + 1 << ". " << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
+									cin.clear();
+									cin.ignore(numeric_limits<streamsize>::max(), '\n');
 								}
-								cout << "--------------------------------------------------------------" << endl;
-
-								cout << "Select an account to add a loan to: ";  //Select a checking account
+								cout << "Invalid option. Please select an option 1-" << checkingAccCount - 1 << ": ";
 								cin >> checkingAccOpt;
-								while (checkingAccOpt < 1 || checkingAccOpt >= checkingAccCount) //Input validation
-								{
-									if (cin.fail())
-									{
-										cin.clear();
-										cin.ignore(numeric_limits<streamsize>::max(), '\n');
-									}
-									cout << "Invalid option. Please select an option 1-" << checkingAccCount - 1 << ": ";
-									cin >> checkingAccOpt;
-								}
+							}
 
-								checkingAccIndex = checkingAccOpt - 1;
-								system("cls");
-								cout << "Please select which loan you would like to add by entering the amount of the loan: " << endl; //Enter loan amount
-								cout << "$1000 --- 2.5% APR ---- 5 months" << endl;
-								cout << "$2000 --- 5.8% APR ---- 8 months" << endl;
-								cout << "$200,000 --- 16% APR --- 30 years" << endl;
-								double loanAmnt = 0;
-								cin >> loanAmnt;
+							checkingAccIndex = checkingAccOpt - 1;
+							system("cls");
+							cout << "Please select which loan you would like to add by entering the amount of the loan: " << endl; //Enter loan amount
+							cout << "$1000 --- 2.5% APR ---- 5 months" << endl;
+							cout << "$2000 --- 5.8% APR ---- 8 months" << endl;
+							cout << "$200,000 --- 16% APR --- 30 years" << endl;
+							double loanAmnt = 0;
+							cin >> loanAmnt;
 
-								while (loanAmnt != 1000 && loanAmnt != 2000 && loanAmnt != 200000)
-								{
-									cout << "Error: Incorrect Loan Selected." << endl; //Input validation
-									cout << "Please select which loan you would like to add by entering the amount of the loan: ";
-									cin >> depositAmnt;
-								}
+							while (loanAmnt != 1000 && loanAmnt != 2000 && loanAmnt != 200000)
+							{
+								cout << "Error: Incorrect Loan Selected." << endl; //Input validation
+								cout << "Please select which loan you would like to add by entering the amount of the loan: ";
+								cin >> depositAmnt;
+							}
 
-								cout << "Are you sure you want to take loan $" << loanAmnt << " and add to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
+							cout << "Are you sure you want to take loan $" << loanAmnt << " and add to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
+							cin >> confirmOpt;
+
+							while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
+							{
+								cout << "Invalid response. Please selection an option Y/N: ";
 								cin >> confirmOpt;
+							}
 
-								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
-								{
-									cout << "Invalid response. Please selection an option Y/N: ";
-									cin >> confirmOpt;
-								}
+							if (confirmOpt == 'Y' || confirmOpt == 'y')
+							{	
+								checkingAccList[checkingAccIndex].getLoan(loanAmnt);
+								cout << " Congrats your debt has grown! " << endl;
+								cout << "-------------------------------" << endl;
+							}
 
-								if (confirmOpt == 'Y' || confirmOpt == 'y')
-								{	
-									checkingAccList[checkingAccIndex].getLoan(loanAmnt);
-									cout << " Congrats your debt has grown! " << endl;
-									cout << "-------------------------------" << endl;
-								}
-
-								cout << "Press 1 to take a new loan or 2 to return to main menu: ";
-								cin >> menuReturnOpt;
+							cout << "Press 1 to take a new loan or 2 to return to main menu: ";
+							cin >> menuReturnOpt;
 						}
-					} while (menuReturnOpt != 2);
-				}
+					} 
+				} while (menuReturnOpt != 2);
 			}
 			customerFound = false; //Reset flag
 			
