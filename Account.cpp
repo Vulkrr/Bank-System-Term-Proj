@@ -127,15 +127,23 @@ void Account::withdraw(double _amount)
 }
 void Account::transfer(double _amount, Account& _destinationAccount)
 {
-	if (_amount <= _destinationAccount.getBal())
+	if (_amount > 0)
 	{
-		bal += _destinationAccount.getBal();
-		_destinationAccount.setBal(_destinationAccount.getBal() - _amount);
+		if (_amount <= _destinationAccount.getBal())
+		{
+			bal += _destinationAccount.getBal();
+			_destinationAccount.setBal(_destinationAccount.getBal() - _amount);
+		}
+		else
+		{
+			cout << "Error: Not enough funds in account." << endl;
+		}
 	}
 	else
 	{
-		cout << "You do not have enough to funds to make this transaction." << endl;
+		cout << "Error: Cannot transfer a negative amount." << endl;
 	}
+	
 }
 void Account::printInfo()
 {

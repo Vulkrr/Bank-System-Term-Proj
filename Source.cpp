@@ -694,17 +694,29 @@ int main() {
 									}
 
 									transferPullIndex = checkingAccOpt - 1;
+
 									system("cls");
 									cout << "Enter amount to transfer: "; //Enter withdraw amount
 									cin >> transferAmnt;
 
 									while (transferAmnt < 0)
 									{
+										if (cin.fail())
+										{
+											cin.clear();
+											cin.ignore(numeric_limits<streamsize>::max(), '\n');
+										}
 										cout << "Error: Cannot transfer a negative number." << endl; //Input validation
 										cout << "Enter amount to transfer: ";
 										cin >> transferAmnt;
 									}
 
+									while (transferAmnt > checkingAccList[transferPullIndex].getBal())
+									{
+										cout << "Error: Not enough funds in account." << endl; //Input validation
+										cout << "Enter amount to transfer: ";
+										cin >> transferAmnt;
+									}
 
 									cout << "Select which type of account to transfer to: " << endl; //Checking/Saving selection
 									cout << "1. Checking" << endl;
@@ -759,8 +771,7 @@ int main() {
 
 										if (confirmOpt == 'Y' || confirmOpt == 'y')
 										{
-											checkingAccList[transferPullIndex].setBal(checkingAccList[transferPullIndex].getBal() - transferAmnt); //Pull money out of old account
-											checkingAccList[transferPushIndex].setBal(checkingAccList[transferPushIndex].getBal() + transferAmnt); //Push money in new account
+											checkingAccList[transferPullIndex].transfer(transferAmnt, checkingAccList[transferPushIndex]); //Transfer
 										}
 										else
 										{
@@ -805,8 +816,8 @@ int main() {
 
 										if (confirmOpt == 'Y' || confirmOpt == 'y')
 										{
-											checkingAccList[transferPullIndex].setBal(checkingAccList[transferPullIndex].getBal() - transferAmnt); //Pull money out of old account
-											savingAccList[transferPushIndex].setBal(savingAccList[transferPushIndex].getBal() + transferAmnt); //Push money in new account
+											checkingAccList[transferPullIndex].transfer(transferAmnt, checkingAccList[transferPushIndex]); //Transfer
+
 										}
 										else
 										{

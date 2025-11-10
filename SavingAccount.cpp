@@ -35,6 +35,5 @@ double SavingAccount::getInterestRate() const
 
 void SavingAccount::payInterest()
 {
-	double tempBal = getBal();
-	setBal(tempBal - (tempBal * interestRate - tempBal));
+	bal -= bal * interestRate - bal;
 }
