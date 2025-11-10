@@ -426,7 +426,7 @@ int main() {
 									cin >> depositAmnt;
 								}
 
-								cout << "Are you sure you want to deposit $" << withdrawAmnt << " to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
+								cout << "Are you sure you want to deposit $" << depositAmnt << " to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
 								cin >> confirmOpt;
 
 								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
@@ -437,8 +437,8 @@ int main() {
 
 								if (confirmOpt == 'Y' || confirmOpt == 'y')
 								{
-									savingAccList[savingAccIndex].setBal(savingAccList[savingAccIndex].getBal() - withdrawAmnt); //Deposit money
-									cout << "Successfully withdrew $" << withdrawAmnt << " from \"" << savingAccList[savingAccIndex].getAccName() << "\"." << endl << endl;
+									savingAccList[savingAccIndex].setBal(savingAccList[savingAccIndex].getBal() - depositAmnt); //Deposit money
+									cout << "Successfully withdrew $" << depositAmnt << " from \"" << savingAccList[savingAccIndex].getAccName() << "\"." << endl << endl;
 									savingAccList[0].setWithdrawCount(savingAccList[0].getWithdrawCount() + 1); //Increase deposit counter
 								}
 
@@ -482,7 +482,7 @@ int main() {
 									cin >> depositAmnt;
 								}
 
-								cout << "Are you sure you want to deposit $" << withdrawAmnt << " to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
+								cout << "Are you sure you want to deposit $" << depositAmnt << " to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
 								cin >> confirmOpt;
 
 								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
@@ -493,8 +493,8 @@ int main() {
 
 								if (confirmOpt == 'Y' || confirmOpt == 'y')
 								{
-									savingAccList[savingAccIndex].setBal(savingAccList[savingAccIndex].getBal() - withdrawAmnt); //Deposit money
-									cout << "Successfully withdrew $" << withdrawAmnt << " from \"" << savingAccList[savingAccIndex].getAccName() << "\"." << endl << endl;
+									savingAccList[savingAccIndex].setBal(savingAccList[savingAccIndex].getBal() - depositAmnt); //Deposit money
+									cout << "Successfully withdrew $" << depositAmnt << " from \"" << savingAccList[savingAccIndex].getAccName() << "\"." << endl << endl;
 									savingAccList[0].setDepositCount(savingAccList[0].getDepositCount() + 1); //Increase deposit counter
 								}
 
@@ -980,7 +980,7 @@ int main() {
 			else
 			{
 				cout << "Select one of the follwing options:" << endl;
-				cout << "1. Modify an account" << endl;
+				cout << "1. Change an account name" << endl;
 				cout << "2. Delete an account" << endl;
 				cin >> subMenuOpt;
 

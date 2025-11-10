@@ -36,7 +36,7 @@ public:
 
 	void deposit(double _amount);
 	void withdraw(double _amount);
-	void transfer(double _amount, Account _destinationAcc);
+	void transfer(double _amount, Account& _destinationAcc);
 	void printInfo();
 };
 #endif // !_ACCOUNT_
