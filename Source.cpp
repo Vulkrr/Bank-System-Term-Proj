@@ -6,6 +6,7 @@
 #include "MiscFunctions.h"
 #include <iomanip>
 #include <vector>
+#include "Index.h"
 
 int main() {
 
@@ -22,13 +23,6 @@ int main() {
 
 	//Transaction history vector (not implemented yet)
 	vector<Transaction> transactionList;
-	
-	//Indexes/Counters
-	int totalCustomerCount = 0, customerIndex = 0, 
-		checkingAccCount = 0, checkingAccIndex = 0, 
-		savingAccCount = 0, savingAccIndex = 0, 
-		transferPullIndex = 0, transferPushIndex = 0, 
-		transactionCount = 0;
 
 	//Flags
 	bool customerFound = false, duplicateInfo = false;
