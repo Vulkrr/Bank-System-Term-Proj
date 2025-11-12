@@ -1,5 +1,6 @@
 #include "Account.h"
 #include <iostream>
+#include "Index.h"
 
 Account::Account() {
 	ID = 0;
@@ -162,6 +163,9 @@ void Account::printInfo()
 void Account::getLoan(double _loan){
 	if (_loan > 0) {
 	bal += _loan;
+		float apr = 2.8;
+		int apply = totalCustomerCount / 2; //Amount of times to apply apr;
+		bal -= apr * apply; // charging loan rate;
 	}
 	else {
 	cout << "Error: Cannot enter a negative amount for your loan." << endl;
