@@ -1150,9 +1150,10 @@ int main()
 			break;
 		}
 
-	} while (mainMenuOpt != 6 || menuReturnOpt != 2);
+	} 
 
 	cout << "Toodles." << endl;
 
 	return 0;
-}
+
+} while (mainMenuOpt != 6 || menuReturnOpt != 2);
