@@ -56,7 +56,7 @@
     <ClInclude Include="MiscFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Index.h">
+    <ClInclude Include="Indexes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,15 +4,17 @@
 #include "SavingAccount.h"
 #include "Transaction.h"
 #include "MiscFunctions.h"
-#include "Index.h"
+#include "Indexes.h"
 #include <iomanip>
 #include <vector>
 using namespace std;
 
-//Finish implementing transfer function
+//Finish implementing transaction functions
 //Start working on transaction history
+//Put customer credentials into a miscfunction getCredentials()
 
-int main() {
+int main() 
+{
 
 	//Array limits
 	const int customerLimit = 10, checkingAccLimit = 5, savingAccLimit = 5;
@@ -67,7 +69,7 @@ int main() {
 
 		switch (mainMenuOpt) 
 		{
-		case 1: //OPTION 1: Create an account (NEED TO SIMPLIFY THIS WITH SUB MENU)
+		case 1: //OPTION 1: Create an account
 			system("cls");	
 			cout << "---------------------------------------------------------" << endl;
 			cout << "1. Create a new customer profile" << endl;
@@ -89,7 +91,7 @@ int main() {
 
 			if (subMenuOpt == 1)
 			{
-				cout << "---------------------------------------------------------" << endl;
+				cout << "-------------------------------------------------------------" << endl;
 				cout << "Please enter the following information for the new customer: " << endl;
 				cout << "Enter customer first name: ";
 				cin >> fname;
@@ -150,7 +152,7 @@ int main() {
 			{
 				do
 				{
-					cout << "----------------------------------------" << endl;
+					cout << "--------------------------------------------" << endl;
 					cout << "Please enter the following credentials:" << endl;
 					cout << "Enter customer last name: ";
 					cin >> lname;
@@ -217,22 +219,31 @@ int main() {
 					cout << "Enter a name for this account: ";
 					cin.ignore();
 					getline(cin, accName);
-
-					while (accName.length() >= accNameLimit)
+					while (accName.length() >= accNameLimit) //Input validation
 					{
-						cout << ""
+						cout << "Error: Account name must be 30 characters or less. Please try agaim." << endl;
+						cout << "Enter a name for this account: ";
+						getline(cin, accName);
 					}
+
 					checkingAccList[checkingAccCount].setAll((checkingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex],overdraftLimit); //Checking account creation
-					cout << "------------------------------------------------------------------" << endl;
+					cout << "-------------------------------------------------------------------------------------" << endl;
 					cout << "You have successfully created a checking account named " << "\"" << accName << "\"." << endl;
 					checkingAccCount++;
 				}
 				else
 				{
-					cout << "-------------------------------------------------" << endl;
+					cout << "------------------------------------------------------------" << endl;
 					cout << "Enter a name for this account: ";
 					cin.ignore();
 					getline(cin, accName);
+					while (accName.length() >= accNameLimit) //Input validation
+					{
+						cout << "Error: Account name must be 30 characters or less. Please try agaim." << endl;
+						cout << "Enter a name for this account: ";
+						getline(cin, accName);
+					}
+
 					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex], interestRate); //Saving account creation
 					cout << "You have successfully created a saving account named " << "\"" << accName << "\"." << endl;
 					savingAccCount++;
@@ -249,10 +260,10 @@ int main() {
 			customerFound = false; //Reset flag
 
 			break;
-		case 2: //OPTION 2: Make a transaction (WIP)
+		case 2: //OPTION 2: Make a transaction 
 			system("cls");
-			cout << "---------------------------------------" << endl;
-
+			cout << "--------------------------------------------" << endl;
+			
 			if (totalCustomerCount == 0) //If there are no existing customers, exit
 			{
 				cout << "Error: There are no customers in the system." << endl;
@@ -261,7 +272,7 @@ int main() {
 			{
 				do
 				{
-					cout << "Please enter the following credentials:" << endl; //Credentials
+					cout << "Please enter the following credentials:" << endl; //Get credentials
 					cout << "Enter customer last name: ";
 					cin >> lname;
 					cout << "Enter customer phone number (digits only): ";
@@ -301,7 +312,6 @@ int main() {
 
 				if (customerFound) 
 				{
-					cout << "Customer found." << endl;
 					do
 					{
 						system("cls");
@@ -455,7 +465,7 @@ int main() {
 
 								if (confirmOpt == 'Y' || confirmOpt == 'y')
 								{
-									savingAccList[savingAccIndex].deposit(_depositAmnt); //Deposit money
+									savingAccList[savingAccIndex].deposit(depositAmnt); //Deposit money
 									cout << "Successfully deposited $" << depositAmnt << " to \"" << savingAccList[savingAccIndex].getAccName() << "\"." << endl << endl;
 									savingAccList[0].setDepositCount(savingAccList[0].getDepositCount() + 1); //Increase deposit counter
 								}
@@ -778,7 +788,6 @@ int main() {
 										if (confirmOpt == 'Y' || confirmOpt == 'y')
 										{
 											checkingAccList[transferPullIndex].transfer(transferAmnt, checkingAccList[transferPushIndex]); //Transfer
-
 										}
 										else
 										{
@@ -934,8 +943,8 @@ int main() {
 									}
 								}
 							}
-						} 
-						else if (subMenuOpt ==4){
+						}
+						else if (subMenuOpt == 4) {
 						{
 							system("cls");
 
@@ -986,18 +995,18 @@ int main() {
 							}
 
 							if (confirmOpt == 'Y' || confirmOpt == 'y')
-							{	
+							{
 								checkingAccList[checkingAccIndex].getLoan(loanAmnt);
 								cout << " Congrats your debt has grown! " << endl;
 								cout << "-------------------------------" << endl;
 							}
 
-							cout << "Press 1 to take a new loan or 2 to return to main menu: ";
+							cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
 							cin >> menuReturnOpt;
 						}
-					} 
-				} while (menuReturnOpt != 2);
-			}
+					}
+				} while (subMenuOpt != 5 || menuReturnOpt != 2);
+			} 
 			customerFound = false; //Reset flag
 			
 			break;
@@ -1145,7 +1154,6 @@ int main() {
 	} while (mainMenuOpt != 6 || menuReturnOpt != 2);
 
 	cout << "Toodles." << endl;
-
 
 	return 0;
 }

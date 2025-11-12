@@ -135,7 +135,7 @@
     <ClInclude Include="Account.h" />
     <ClInclude Include="CheckingAccount.h" />
     <ClInclude Include="Customer.h" />
-    <ClInclude Include="Index.h" />
+    <ClInclude Include="Indexes.h" />
     <ClInclude Include="MiscFunctions.h" />
     <ClInclude Include="SavingAccount.h" />
     <ClInclude Include="Transaction.h" />
