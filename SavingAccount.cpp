@@ -17,7 +17,7 @@ void SavingAccount::setAll(int _ID, int _withdrawCount, int _depositCount, int _
 }
 void SavingAccount::setInterestRate(double _interestRate)
 {
-	if (_interestRate >= 0)
+	if (_interestRate >= 0 && _interestRate < 2)
 	{
 		interestRate = _interestRate;
 	}
@@ -35,5 +35,5 @@ double SavingAccount::getInterestRate() const
 
 void SavingAccount::payInterest()
 {
-	bal -= bal * interestRate - bal;
+	bal = bal * interestRate;
 }
