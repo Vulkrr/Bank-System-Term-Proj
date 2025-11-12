@@ -7,6 +7,7 @@
 #include "Index.h"
 #include <iomanip>
 #include <vector>
+using namespace std;
 
 //Finish implementing transfer function
 //Start working on transaction history
@@ -17,7 +18,7 @@ int main() {
 	const int customerLimit = 10, checkingAccLimit = 5, savingAccLimit = 5;
 
 	//Bank limits
-	const double interestRate = 1.02, overdraftLimit = 50; 
+	const double interestRate = 1.02, overdraftLimit = 500, accNameLimit = 30; 
 
 	//Arrays
 	Customer customerList[customerLimit];
@@ -31,7 +32,7 @@ int main() {
 	bool customerFound = false, duplicateInfo;
 
 	//Option inputs
-	int menuOpt, subMenuOpt, accTypeOpt, menuReturnOpt, checkingAccOpt, savingAccOpt; 
+	int mainMenuOpt, subMenuOpt, accTypeOpt, menuReturnOpt, checkingAccOpt, savingAccOpt; 
 	char existingOpt, confirmOpt;
 
 	//Info inputs
@@ -43,16 +44,17 @@ int main() {
 	do
 	{
 		system("cls");
-		cout << "======================================" << endl; //Main menu 
-		cout << "Select one of the following options: " << endl;
+		cout << "====================BANK MANAGER MENU====================" << endl; //Main menu 
 		cout << "1. Create an account" << endl;
 		cout << "2. Make a transaction" << endl;
 		cout << "3. Modify or delete accounts" << endl;
 		cout << "4. View personal account information" << endl;
 		cout << "5. View all customers" << endl;
 		cout << "6. Exit program" << endl;
-		cin >> menuOpt;
-		while (menuOpt < 1 || menuOpt > 6) //Input validation
+		cout << "=========================================================" << endl;
+		cout << "Welcome. Please select one of the above options: ";
+		cin >> mainMenuOpt;
+		while (mainMenuOpt < 1 || mainMenuOpt > 6) //Input validation
 		{
 			if (cin.fail())
 			{
@@ -60,17 +62,34 @@ int main() {
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
 			cout << "Invalid option. Please enter an option 1-5: ";
-			cin >> menuOpt;
+			cin >> mainMenuOpt;
 		}
 
-		switch (menuOpt) 
+		switch (mainMenuOpt) 
 		{
 		case 1: //OPTION 1: Create an account (NEED TO SIMPLIFY THIS WITH SUB MENU)
-			system("cls");
-			cout << "------------------------------------------------------------" << endl;
+			system("cls");	
+			cout << "---------------------------------------------------------" << endl;
+			cout << "1. Create a new customer profile" << endl;
+			cout << "2. Create an account for an existing customer" << endl;
+			cout << "---------------------------------------------------------" << endl;
+			cout << "Select one of the above options:" << endl;
+			cin >> subMenuOpt;
 
-			if (totalCustomerCount == 0) //If there are no customers in the system, instantly make a new customer
+			while (subMenuOpt < 1 || subMenuOpt > 2) //Input validation
 			{
+				if (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				}
+				cout << "Error: Invalid option. Please enter an option 1-2: ";
+				cin >> subMenuOpt;
+			}
+
+			if (subMenuOpt == 1)
+			{
+				cout << "---------------------------------------------------------" << endl;
 				cout << "Please enter the following information for the new customer: " << endl;
 				cout << "Enter customer first name: ";
 				cin >> fname;
@@ -129,132 +148,56 @@ int main() {
 			}
 			else
 			{
-				cout << "Is the user an existing customer? (Y/N): "; //If there are customers in the system, ask if the user is an existing customer
-				cin >> existingOpt;
-				while (existingOpt != 'Y' && existingOpt != 'y' && existingOpt != 'N' && existingOpt != 'n') //Input validation
+				do
 				{
-					if (cin.fail())
-					{
-						cin.clear();
-						cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					}
-					cout << "Invalid option." << endl;
-					cout << "Is the user an existing customer? (Y/N): ";
-					cin >> existingOpt;
-				}
-
-				if (existingOpt == 'N' || existingOpt == 'n') //If the user is a new customer, create a new customer
-				{
-					cout << "------------------------------------------------------------" << endl;
-					cout << "Please enter the following information for the new customer: " << endl;
-					cout << "Enter customer first name: ";
-					cin >> fname;
+					cout << "----------------------------------------" << endl;
+					cout << "Please enter the following credentials:" << endl;
 					cout << "Enter customer last name: ";
 					cin >> lname;
-					do //Ensure there are no duplicates
-					{
-						duplicateInfo = false;
-						cout << "Enter customer address: ";
-						cin.ignore();
-						getline(cin, address);
-						for (int i = 0; i < totalCustomerCount; i++)
-						{
-							if (address == customerList[i].getAddress())
-							{
-								duplicateInfo = true;
-								cout << "Error: Duplicate address already exists." << endl;
-								break;
-							}
-						}
-					} while (duplicateInfo);
-					do //Ensure there are no duplicates
-					{
-						duplicateInfo = false;
-						cout << "Enter customer phone number (digits only): ";
-						cin >> phoneNumber;
-						for (int i = 0; i < totalCustomerCount; i++)
-						{
-							if (phoneNumber == customerList[i].getPhone())
-							{
-								duplicateInfo = true;
-								cout << "Error: Duplicate phone number already exists." << endl;
-								break;
-							}
-						}
-					} while (duplicateInfo);
-					do //Ensure there are no duplicates
-					{
-						duplicateInfo = false;
-						cout << "Enter customer email: ";
-						cin >> email;
-						for (int i = 0; i < totalCustomerCount; i++)
-						{
-							if (email == customerList[i].getEmail())
-							{
-								duplicateInfo = true;
-								cout << "Error: Duplicate email already exists." << endl;
-								break;
-							}
-						}
-					} while (duplicateInfo);
-					customerList[totalCustomerCount].setAll(fname, lname, address, phoneNumber, email);
-					cout << "Customer successfully added to system." << endl;
-					totalCustomerCount++;
-					customerFound = true;
-				}
-				else //If the user is an existing customer, enter their credentials
-				{
-					do
-					{
-						cout << "----------------------------------------" << endl;
-						cout << "Please enter the following credentials:" << endl;
-						cout << "Enter customer last name: ";
-						cin >> lname;
-						cout << "Enter customer phone number (digits only): ";
-						cin >> phoneNumber;
+					cout << "Enter customer phone number (digits only): ";
+					cin >> phoneNumber;
 
-						for (int i = 0; i < totalCustomerCount; i++) //Check every customer to find a match
+					for (int i = 0; i < totalCustomerCount; i++) //Check every customer to find a match
+					{
+						if (customerList[i].getLname() == lname && customerList[i].getPhone() == phoneNumber)
 						{
-							if (customerList[i].getLname() == lname && customerList[i].getPhone() == phoneNumber)
-							{
-								customerFound = true;
-								customerIndex = i;
-								break;
-							}
+							customerFound = true;
+							customerIndex = i;
+							break;
 						}
+					}
 
-						if (customerFound == false)
+					if (customerFound == false)
+					{
+						cout << "Error: Customer does not exist or credentials are wrong." << endl; //If customer isn't found, try again or exit
+						cout << "Press 1 to try again or 2 to return to main menu: ";
+						cin >> menuReturnOpt;
+						while (menuReturnOpt < 1 || menuReturnOpt > 2) //Input validation
 						{
-							cout << "Error: Customer does not exist or credentials are wrong." << endl; //If customer isn't found, try again or exit
+							if (cin.fail())
+							{
+								cin.clear();
+								cin.ignore(numeric_limits<streamsize>::max(), '\n');
+							}
+							cout << "Invalid option." << endl;
 							cout << "Press 1 to try again or 2 to return to main menu: ";
 							cin >> menuReturnOpt;
-							while (menuReturnOpt < 1 || menuReturnOpt > 2) //Input validation
-							{
-								if (cin.fail())
-								{
-									cin.clear();
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
-								}
-								cout << "Invalid option." << endl;
-								cout << "Press 1 to try again or 2 to return to main menu: ";
-								cin >> menuReturnOpt;
-							}
-							if (menuReturnOpt == 2)
-							{
-								break;
-							}
 						}
-					} while (customerFound == false);
-				}
+						if (menuReturnOpt == 2)
+						{
+							break;
+						}
+					}
+				} while (customerFound == false);
 			}
 
 			if (customerFound)
 			{
-				cout << "------------------------------------------------------" << endl; //Account creation selection
-				cout << "Customer found." << endl;
-				cout << "Select which type of account you would like to create: " << endl;
+				cout << "-------------------------------------------------------" << endl; //Account creation selection
 				cout << "1. Checking account" << endl;
 				cout << "2. Saving account" << endl;
+				cout << "-------------------------------------------------------" << endl; //Account creation selection
+				cout << "Select which type of account you would like to create: " << endl;
 				cin >> accTypeOpt;
 
 				while (accTypeOpt < 1 || accTypeOpt > 2) //Input validation
@@ -264,18 +207,24 @@ int main() {
 						cin.clear();
 						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					}
-					cout << "Invalid option. Please enter an option 1-2: ";
+					cout << "Error: Invalid option. Please enter an option 1-2: ";
 					cin >> accTypeOpt;
 				}
 
 				if (accTypeOpt == 1)
 				{
-					cout << "-----------------------------------------------" << endl;
+					cout << "------------------------------" << endl;
 					cout << "Enter a name for this account: ";
 					cin.ignore();
 					getline(cin, accName);
+
+					while (accName.length() >= accNameLimit)
+					{
+						cout << ""
+					}
 					checkingAccList[checkingAccCount].setAll((checkingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex],overdraftLimit); //Checking account creation
-					cout << "You have successfully created a saving account named " << "\"" << accName << "\"." << endl;
+					cout << "------------------------------------------------------------------" << endl;
+					cout << "You have successfully created a checking account named " << "\"" << accName << "\"." << endl;
 					checkingAccCount++;
 				}
 				else
@@ -292,6 +241,10 @@ int main() {
 				cout << "Press any key to return to menu: ";
 				cin.ignore();
 				cin.get();
+			}
+			else
+			{
+				cout << "Error: Customer does not exist or was not found." << endl;
 			}
 			customerFound = false; //Reset flag
 
@@ -1189,7 +1142,7 @@ int main() {
 			break;
 		}
 
-	} while (menuOpt != 6 || menuReturnOpt != 2);
+	} while (mainMenuOpt != 6 || menuReturnOpt != 2);
 
 	cout << "Toodles." << endl;
 
