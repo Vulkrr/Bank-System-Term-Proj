@@ -15,7 +15,6 @@ using namespace std;
 
 int main() 
 {
-
 	//Array limits
 	const int customerLimit = 10, checkingAccLimit = 5, savingAccLimit = 5;
 
@@ -46,14 +45,14 @@ int main()
 	do
 	{
 		system("cls");
-		cout << "====================BANK MANAGER MENU====================" << endl; //Main menu 
+		cout << "=======================BANK MANAGER=======================" << endl; //Main menu 
 		cout << "1. Create an account" << endl;
 		cout << "2. Make a transaction" << endl;
 		cout << "3. Modify or delete accounts" << endl;
 		cout << "4. View personal account information" << endl;
 		cout << "5. View all customers" << endl;
 		cout << "6. Exit program" << endl;
-		cout << "=========================================================" << endl;
+		cout << "==========================================================" << endl;
 		cout << "Welcome. Please select one of the above options: ";
 		cin >> mainMenuOpt;
 		while (mainMenuOpt < 1 || mainMenuOpt > 6) //Input validation
@@ -221,7 +220,7 @@ int main()
 					getline(cin, accName);
 					while (accName.length() >= accNameLimit) //Input validation
 					{
-						cout << "Error: Account name must be 30 characters or less. Please try agaim." << endl;
+						cout << "Error: Account name must be 30 characters or less. Please try again." << endl;
 						cout << "Enter a name for this account: ";
 						getline(cin, accName);
 					}
@@ -239,7 +238,7 @@ int main()
 					getline(cin, accName);
 					while (accName.length() >= accNameLimit) //Input validation
 					{
-						cout << "Error: Account name must be 30 characters or less. Please try agaim." << endl;
+						cout << "Error: Account name must be 30 characters or less. Please try again." << endl;
 						cout << "Enter a name for this account: ";
 						getline(cin, accName);
 					}
