@@ -28,7 +28,7 @@ int main() {
 	vector<Transaction> transactionList;
 
 	//Flags
-	bool customerFound = false, duplicateInfo = false;
+	bool customerFound = false, duplicateInfo;
 
 	//Option inputs
 	int menuOpt, subMenuOpt, accTypeOpt, menuReturnOpt, checkingAccOpt, savingAccOpt; 
@@ -336,8 +336,7 @@ int main() {
 								cin.clear();
 								cin.ignore(numeric_limits<streamsize>::max(), '\n');
 							}
-							cout << "Invalid option." << endl;
-							cout << "Press 1 to try again or 2 to return to main menu: ";
+							cout << "Error: Invalid option. Please select an option 1-2: ";
 							cin >> menuReturnOpt;
 						}
 						if (menuReturnOpt == 2)
@@ -369,8 +368,7 @@ int main() {
 								cin.clear();
 								cin.ignore(numeric_limits<streamsize>::max(), '\n');
 							}
-							cout << "Invalid option." << endl;
-							cout << "Please select an option 1-5: ";
+							cout << "Error: Invalid option. Please select an option 1-5: ";
 							cin >> subMenuOpt;
 						}
 
@@ -388,8 +386,7 @@ int main() {
 									cin.clear();
 									cin.ignore(numeric_limits<streamsize>::max(), '\n');
 								}
-								cout << "Invalid option." << endl;
-								cout << "Please select an option 1-2: ";
+								cout << "Error: Invalid option. Please select an option 1-2: ";
 								cin >> accTypeOpt;
 							}
 
@@ -414,7 +411,7 @@ int main() {
 										cin.clear();
 										cin.ignore(numeric_limits<streamsize>::max(), '\n');
 									}
-									cout << "Invalid option. Please select an option 1-" << checkingAccCount - 1 << ": ";
+									cout << "Error: Invalid option. Please select an option 1-2" << checkingAccCount - 1 << ": ";
 									cin >> checkingAccOpt;
 								}
 
@@ -427,6 +424,14 @@ int main() {
 								{
 									cout << "Error: Cannot deposit a negative number." << endl; //Input validation
 									cout << "Enter amount to deposit: ";
+									cin >> depositAmnt;
+								}
+
+								while (cin.fail())
+								{
+									cin.clear();
+									cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Input validation
+									cout << "Error: Invalid amount. Please enter a valid number: " << endl;
 									cin >> depositAmnt;
 								}
 
@@ -497,8 +502,8 @@ int main() {
 
 								if (confirmOpt == 'Y' || confirmOpt == 'y')
 								{
-									savingAccList[savingAccIndex].setBal(savingAccList[savingAccIndex].getBal() - depositAmnt); //Deposit money
-									cout << "Successfully withdrew $" << depositAmnt << " from \"" << savingAccList[savingAccIndex].getAccName() << "\"." << endl << endl;
+									savingAccList[savingAccIndex].deposit(_depositAmnt); //Deposit money
+									cout << "Successfully deposited $" << depositAmnt << " to \"" << savingAccList[savingAccIndex].getAccName() << "\"." << endl << endl;
 									savingAccList[0].setDepositCount(savingAccList[0].getDepositCount() + 1); //Increase deposit counter
 								}
 
@@ -1184,9 +1189,10 @@ int main() {
 			break;
 		}
 
-	} while (menuOpt != 6);
+	} while (menuOpt != 6 || menuReturnOpt != 2);
 
 	cout << "Toodles." << endl;
+
 
 	return 0;
 }
