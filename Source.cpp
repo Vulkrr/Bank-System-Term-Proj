@@ -19,7 +19,7 @@ int main()
 	const int customerLimit = 10, checkingAccLimit = 5, savingAccLimit = 5;
 
 	//Bank limits
-	const double interestRate = 1.02, overdraftLimit = 500, accNameLimit = 30; 
+	const double interestRateValue = 1.02, overdraftLimit = 500, accNameLimit = 30; 
 
 	//Arrays
 	Customer customerList[customerLimit];
@@ -27,6 +27,8 @@ int main()
 	SavingAccount savingAccList[savingAccLimit];
 
 	//Transaction history vector (not implemented yet)
+	vector<Customer>customerPtrs;
+
 	vector<Transaction> transactionList;
 
 	//Flags
@@ -243,7 +245,7 @@ int main()
 						getline(cin, accName);
 					}
 
-					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex], interestRate); //Saving account creation
+					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex], interestRateValue); //Saving account creation
 					cout << "You have successfully created a saving account named " << "\"" << accName << "\"." << endl;
 					savingAccCount++;
 				}
@@ -666,24 +668,23 @@ int main()
 									transferPullIndex = checkingAccOpt - 1;
 
 									system("cls");
-									cout << "Enter amount to transfer: "; //Enter withdraw amount
+									cout << "Enter amount to transfer: "; //Enter transfer amount
 									cin >> transferAmnt;
 
-									while (transferAmnt < 0)
+									while (transferAmnt < 0) //Input validation
 									{
 										if (cin.fail())
 										{
 											cin.clear();
 											cin.ignore(numeric_limits<streamsize>::max(), '\n');
 										}
-										cout << "Error: Cannot transfer a negative number." << endl; //Input validation
-										cout << "Enter amount to transfer: ";
+										cout << "Error: Invalid amount. Please enter a valid number: ";
 										cin >> transferAmnt;
 									}
 
-									while (transferAmnt > checkingAccList[transferPullIndex].getBal())
+									while (transferAmnt > checkingAccList[transferPullIndex].getBal()) //Funds validation
 									{
-										cout << "Error: Not enough funds in account." << endl; //Input validation
+										cout << "Error: Not enough funds in account. You have $" << checkingAccList[transferPullIndex].getBal() << " in this account." << endl; 
 										cout << "Enter amount to transfer: ";
 										cin >> transferAmnt;
 									}
@@ -1148,12 +1149,10 @@ int main()
 			cin.ignore();
 			cin.get();
 			break;
-		}
-
-	} 
+			}
+		} 
+	} while (mainMenuOpt != 6 || menuReturnOpt != 2);
 
 	cout << "Toodles." << endl;
-
 	return 0;
-
-} while (mainMenuOpt != 6 || menuReturnOpt != 2);
+}
