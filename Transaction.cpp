@@ -6,22 +6,19 @@ Transaction::Transaction()
 	transactionType = "";
 	transactionAmnt = 0;
 	snapshotBal = 0;
-	overdraft = false;
 }
-Transaction::Transaction(string _transactionType, double _transactionAmnt, double _snapshotBal, bool _overdraft)
+Transaction::Transaction(string _transactionType, double _transactionAmnt, double _snapshotBal)
 {
 	transactionType = _transactionType;
 	setTransactionAmnt(_transactionAmnt);
 	setSnapshotBal(_snapshotBal);
-	overdraft = _overdraft;
 }
 
-void Transaction::setAll(string _transactionType, double _transactionAmnt, double _snapshotBal, bool _overdraft)
+void Transaction::setAll(string _transactionType, double _transactionAmnt, double _snapshotBal)
 {
 	transactionType = _transactionType;
 	setTransactionAmnt(_transactionAmnt);
 	setSnapshotBal(_snapshotBal);
-	overdraft = _overdraft;
 }
 void Transaction::setTransactionType(string _transactionType)
 {
@@ -49,10 +46,6 @@ void Transaction::setSnapshotBal(double _snapshotBal)
 		_snapshotBal = 0;
 	}
 }
-void Transaction::setOverdraft(bool _overdraft)
-{
-	overdraft = _overdraft;
-}
 
 string Transaction::getTransactionType() const
 {
@@ -66,12 +59,9 @@ double Transaction::getSnapshotBal() const
 {
 	return snapshotBal;
 }
-bool Transaction::getOverdraft() const
-{
-	return overdraft;
-}
 
-void printTransaction()
+
+void Transaction::printTransaction()
 {
-	cout << "Printing transactions is WIP." << endl;
+	cout << "WIP." << endl;
 }
