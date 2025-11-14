@@ -80,17 +80,7 @@ void Account::setBal(double _bal)
 		bal = 0;
 	}
 }
-void Account::setLoan(double _loan) {
-	if (_loan > 0) {
-		bal += _loan;
-		double apr = 2.8;
-		int apply = totalCustomerCount / 2; //Amount of times to apply apr;
-		bal -= apr * apply; // charging loan rate;
-	}
-	else {
-		cout << "Error: Cannot enter a negative amount for your loan." << endl;
-	}
-}
+
 void Account::setAccName(string _accName)
 {
 	accName = _accName;
