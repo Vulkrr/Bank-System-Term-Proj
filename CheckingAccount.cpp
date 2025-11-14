@@ -4,15 +4,15 @@
 CheckingAccount::CheckingAccount() : Account() {
 	overdraftLimit = 0;
 }
-CheckingAccount::CheckingAccount(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, double _loan, string _accName, Customer* _customerInfo,
-	 double _overdraftLimit) : Account (_ID, _withdrawCount, _depositCount, _transferCount, _bal, _loan, _accName, _customerInfo)
+CheckingAccount::CheckingAccount(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo,
+	 double _overdraftLimit) : Account (_ID, _withdrawCount, _depositCount, _transferCount, _bal, _accName, _customerInfo)
 {
 	setOverdraftLimit(_overdraftLimit);
 }
 
-void CheckingAccount::setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, double _loan, string _accName, Customer* _customerInfo,  double _overdraftLimit)
+void CheckingAccount::setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo,  double _overdraftLimit)
 {
-	Account::setAll(_ID, _withdrawCount, _depositCount, _transferCount, _bal, _loan, _accName, _customerInfo);
+	Account::setAll(_ID, _withdrawCount, _depositCount, _transferCount, _bal, _accName, _customerInfo);
 	setOverdraftLimit(_overdraftLimit);
 }
 void CheckingAccount::setOverdraftLimit(double _overdraftlimit) {
