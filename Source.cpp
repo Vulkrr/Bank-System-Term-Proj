@@ -12,37 +12,38 @@ using namespace std;
 //Start working on transaction history
 //Put customer credentials into a miscfunction getCredentials()
 
-int totalCustomerCount = 0, customerIndex = 0,
-checkingAccCount = 0, checkingAccIndex = 0,
-savingAccCount = 0, savingAccIndex = 0,
-transferPullIndex = 0, transferPushIndex = 0,
-transactionCount = 0, generalAccIndex = 0;
-
-int main() 
+int main()
 {
-	//Array limits
-	const int customerLimit = 10, checkingAccLimit = 5, savingAccLimit = 5;
-
 	//Bank limits
-	const double interestRateValue = 1.02, overdraftLimit = 500, accNameLimit = 30; 
+	const double interestRateValue = 1.02, overdraftLimit = 500, accNameLimit = 30;
+
+	//Array limits
+	const int customerLimit = 10, checkingAccLimit = 30, savingAccLimit = 30;
 
 	//Arrays
 	Customer customerList[customerLimit];
 	CheckingAccount checkingAccList[checkingAccLimit];
 	SavingAccount savingAccList[savingAccLimit];
 
-	//Transaction history vector (not implemented yet)
+	//Transaction history vector
 	vector<Transaction> transactionList;
 
+	//Counters/Indexes
+	int totalCustomerCount = 0, customerIndex = 0,
+		checkingAccCount = 0, checkingAccIndex = 0,
+		savingAccCount = 0, savingAccIndex = 0,
+		transferPullIndex = 0, transferPushIndex = 0,
+		transactionCount = 0, generalAccIndex = 0;
+
 	//Flags
-	bool customerFound = false, duplicateInfo;
+	bool customerFound = false, duplicateInfo = false;
 
 	//Option inputs
-	int mainMenuOpt, subMenuOpt, accTypeOpt, menuReturnOpt, checkingAccOpt, savingAccOpt, generalAccOpt; 
+	int mainMenuOpt, subMenuOpt, accTypeOpt, menuReturnOpt, checkingAccOpt, savingAccOpt, generalAccOpt;
 	char confirmOpt;
 
 	//Info inputs
-	string fname, lname, address, email, phoneNumber, accName; 
+	string fname, lname, address, email, phoneNumber, accName;
 
 	//Amount inputs
 	double depositAmnt, withdrawAmnt, transferAmnt;
@@ -71,10 +72,10 @@ int main()
 			cin >> mainMenuOpt;
 		}
 
-		switch (mainMenuOpt) 
+		switch (mainMenuOpt)
 		{
 		case 1: //OPTION 1: Create an account
-			system("cls");	
+			system("cls");
 			cout << "---------------------------------------------------------" << endl;
 			cout << "1. Create a new customer profile" << endl;
 			cout << "2. Create an account for an existing customer" << endl;
@@ -230,7 +231,7 @@ int main()
 						getline(cin, accName);
 					}
 
-					checkingAccList[checkingAccCount].setAll((checkingAccCount + 1), 0, 0, 0, 0 ,accName, &customerList[customerIndex],overdraftLimit); //Checking account creation
+					checkingAccList[checkingAccCount].setAll((checkingAccCount + 1), 0, 0, 0, 0, 0, accName, &customerList[customerIndex], overdraftLimit); //Checking account creation
 					cout << "-------------------------------------------------------------------------------------" << endl;
 					cout << "You have successfully created a checking account named " << "\"" << accName << "\"." << endl;
 					checkingAccCount++;
@@ -248,7 +249,7 @@ int main()
 						getline(cin, accName);
 					}
 
-					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex], interestRateValue); //Saving account creation
+					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, 0, accName, &customerList[customerIndex], interestRateValue); //Saving account creation
 					cout << "You have successfully created a saving account named " << "\"" << accName << "\"." << endl;
 					savingAccCount++;
 				}
@@ -267,7 +268,7 @@ int main()
 		case 2: //OPTION 2: Make a transaction 
 			system("cls");
 			cout << "--------------------------------------------" << endl;
-			
+
 			if (totalCustomerCount == 0) //If there are no existing customers, exit
 			{
 				cout << "Error: There are no customers in the system." << endl;
@@ -314,7 +315,7 @@ int main()
 					}
 				} while (customerFound == false);
 
-				if (customerFound) 
+				if (customerFound)
 				{
 					do
 					{
@@ -703,7 +704,7 @@ int main()
 
 									while (transferAmnt > checkingAccList[transferPullIndex].getBal()) //Funds validation
 									{
-										cout << "Error: Not enough funds in account. You have $" << checkingAccList[transferPullIndex].getBal() << " in this account." << endl; 
+										cout << "Error: Not enough funds in account. You have $" << checkingAccList[transferPullIndex].getBal() << " in this account." << endl;
 										cout << "Enter amount to transfer: ";
 										cin >> transferAmnt;
 									}
@@ -979,75 +980,75 @@ int main()
 							}
 						}
 						else if (subMenuOpt == 4) {
-						{
-							system("cls");
-
-							cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
-							cout << "--------------------------------------------------------------" << endl;
-							for (int i = 0; i < checkingAccCount; i++)
 							{
-								cout << i + 1 << ". " << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
-							}
-							cout << "--------------------------------------------------------------" << endl;
+								system("cls");
 
-							cout << "Select an account to add a loan to: ";  //Select a checking account
-							cin >> checkingAccOpt;
-							while (checkingAccOpt < 1 || checkingAccOpt >= checkingAccCount) //Input validation
-							{
-								if (cin.fail())
+								cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
+								cout << "--------------------------------------------------------------" << endl;
+								for (int i = 0; i < checkingAccCount; i++)
 								{
-									cin.clear();
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
+									cout << i + 1 << ". " << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
 								}
-								cout << "Invalid option. Please select an option 1-" << checkingAccCount - 1 << ": ";
+								cout << "--------------------------------------------------------------" << endl;
+
+								cout << "Select an account to add a loan to: ";  //Select a checking account
 								cin >> checkingAccOpt;
-							}
+								while (checkingAccOpt < 1 || checkingAccOpt >= checkingAccCount) //Input validation
+								{
+									if (cin.fail())
+									{
+										cin.clear();
+										cin.ignore(numeric_limits<streamsize>::max(), '\n');
+									}
+									cout << "Invalid option. Please select an option 1-" << checkingAccCount - 1 << ": ";
+									cin >> checkingAccOpt;
+								}
 
-							checkingAccIndex = checkingAccOpt - 1;
-							system("cls");
-							cout << "Please select which loan you would like to add by entering the amount of the loan: " << endl; //Enter loan amount
-							cout << "$1000 --- 2.5% APR ---- 5 months" << endl;
-							cout << "$2000 --- 5.8% APR ---- 8 months" << endl;
-							cout << "$200,000 --- 16% APR --- 30 years" << endl;
-							double loanAmnt = 0;
-							cin >> loanAmnt;
+								checkingAccIndex = checkingAccOpt - 1;
+								system("cls");
+								cout << "Please select which loan you would like to add by entering the amount of the loan: " << endl; //Enter loan amount
+								cout << "$1000 --- 2.5% APR ---- 5 months" << endl;
+								cout << "$2000 --- 5.8% APR ---- 8 months" << endl;
+								cout << "$200,000 --- 16% APR --- 30 years" << endl;
+								double loanAmnt = 0;
+								cin >> loanAmnt;
 
-							while (loanAmnt != 1000 && loanAmnt != 2000 && loanAmnt != 200000)
-							{
-								cout << "Error: Incorrect Loan Selected." << endl; //Input validation
-								cout << "Please select which loan you would like to add by entering the amount of the loan: ";
-								cin >> depositAmnt;
-							}
+								while (loanAmnt != 1000 && loanAmnt != 2000 && loanAmnt != 200000)
+								{
+									cout << "Error: Incorrect Loan Selected." << endl; //Input validation
+									cout << "Please select which loan you would like to add by entering the amount of the loan: ";
+									cin >> depositAmnt;
+								}
 
-							cout << "Are you sure you want to take loan $" << loanAmnt << " and add to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
-							cin >> confirmOpt;
-
-							while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
-							{
-								cout << "Invalid response. Please selection an option Y/N: ";
+								cout << "Are you sure you want to take loan $" << loanAmnt << " and add to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
 								cin >> confirmOpt;
+
+								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
+								{
+									cout << "Invalid response. Please selection an option Y/N: ";
+									cin >> confirmOpt;
+								}
+
+								if (confirmOpt == 'Y' || confirmOpt == 'y')
+								{
+									checkingAccList[checkingAccIndex].setLoan(loanAmnt);
+									cout << " Congrats your debt has grown! " << endl;
+									cout << "-------------------------------" << endl;
+
+									Transaction t("Loan", loanAmnt, checkingAccList[checkingAccIndex].getBal()); //Create a new transaction object
+									transactionList.push_back(t); //Add the object to transaction list
+									transactionCount++; //Increase transaction counter
+								}
+
+								cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
+								cin >> menuReturnOpt;
 							}
-
-							if (confirmOpt == 'Y' || confirmOpt == 'y')
-							{
-								
-								cout << " Congrats your debt has grown! " << endl;
-								cout << "-------------------------------" << endl;
-
-								Transaction t("Loan", loanAmnt, checkingAccList[checkingAccIndex].getBal()); //Create a new transaction object
-								transactionList.push_back(t); //Add the object to transaction list
-								transactionCount++; //Increase transaction counter
-							}
-
-							cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
-							cin >> menuReturnOpt;
 						}
-					}
-				} while (subMenuOpt != 5 || menuReturnOpt != 2);
-			} 
-			customerFound = false; //Reset flag
-			
-			break;
+					} while (subMenuOpt != 5 || menuReturnOpt != 2);
+				}
+				customerFound = false; //Reset flag
+
+				break;
 		case 3: //OPTION 3: Modify or delete accounts
 			system("cls");
 			cout << "---------------------------------------" << endl;
@@ -1286,13 +1287,13 @@ int main()
 										for (int i = checkingAccIndex; i < checkingAccCount; i++)
 										{
 											checkingAccList[i].setAll(checkingAccList[i + 1].getID(), checkingAccList[i + 1].getWithdrawCount(), checkingAccList[i + 1].getDepositCount(),
-												checkingAccList[i + 1].getTransferCount(), checkingAccList[i + 1].getBal(),
+												checkingAccList[i + 1].getTransferCount(), checkingAccList[i + 1].getBal(), checkingAccList[i + 1].getLoan(),
 												checkingAccList[i + 1].getAccName(), checkingAccList[i + 1].getCustomerInfo(), checkingAccList[i + 1].getOverdraftLimit());
 										}
 									}
 									else
 									{
-										checkingAccList[checkingAccCount].setAll(0, 0, 0, 0, 0, "", nullptr, 0);
+										checkingAccList[checkingAccCount].setAll(0, 0, 0, 0, 0, 0, "", nullptr, 0);
 									}
 									checkingAccCount--;
 								}
@@ -1343,13 +1344,13 @@ int main()
 										for (int i = savingAccIndex; i < savingAccCount; i++) //If the deleted account is not in the last index, move all the following accounts to fill the gap
 										{
 											savingAccList[i].setAll(savingAccList[i + 1].getID(), savingAccList[i + 1].getWithdrawCount(), savingAccList[i + 1].getDepositCount(),
-												savingAccList[i + 1].getTransferCount(), savingAccList[i + 1].getBal(),
+												savingAccList[i + 1].getTransferCount(), savingAccList[i + 1].getBal(), savingAccList[i + 1].getLoan(),
 												savingAccList[i + 1].getAccName(), savingAccList[i + 1].getCustomerInfo(), savingAccList[i + 1].getInterestRate());
 										}
 									}
 									else
 									{
-										savingAccList[savingAccCount].setAll(0, 0, 0, 0, 0, "", nullptr, 0);
+										savingAccList[savingAccCount].setAll(0, 0, 0, 0, 0, 0, "", nullptr, 0);
 									}
 									savingAccCount--;
 								}
@@ -1359,9 +1360,9 @@ int main()
 							}
 						} while (menuReturnOpt == 1);
 					}
-				}				
+				}
 			}
-			
+
 			break;
 		case 4: //OPTION 4: View personal account info
 			system("cls");
@@ -1423,6 +1424,7 @@ int main()
 							if (customerList[i].getLname() == lname && customerList[i].getPhone() == phoneNumber)
 							{
 								customerFound = true;
+
 								cout << "Customer found." << endl;
 								break;
 							}
@@ -1436,6 +1438,7 @@ int main()
 
 				if (customerFound == true)
 				{
+					system("cls");
 					cout << "---------------------------------------" << endl;
 					cout << "1. View general info" << endl;
 					cout << "2. View transaction history" << endl;
@@ -1458,11 +1461,12 @@ int main()
 
 					if (subMenuOpt == 1)
 					{
+						system("cls");
 
 					}
 				}
 			}
-			
+
 			cout << "Press any key to return to menu: ";
 			cin.ignore();
 			cin.get();
@@ -1492,7 +1496,7 @@ int main()
 			cin.get();
 			break;
 			}
-		} 
+		}
 	} while (mainMenuOpt != 6 || menuReturnOpt != 2);
 
 	cout << "Toodles." << endl;
