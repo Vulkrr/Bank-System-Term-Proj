@@ -8,10 +8,9 @@ using namespace std;
 
 class Account {
 	int ID, withdrawCount, depositCount, transferCount;
-	string accName;
 	Customer* customerInfo;
-
 protected:
+	string accName;
 	double bal, loan;
 public:
 	Account();

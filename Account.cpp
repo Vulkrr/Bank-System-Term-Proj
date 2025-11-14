@@ -178,8 +178,7 @@ void Account::printInfo()
 	if (customerInfo != nullptr)
 		customerInfo->printInfoFull();
 	cout << "-------------" << endl;
-	cout << "Account ID: " << ID << endl;
-	cout << "Balance: " << "$" << bal << endl;
+	cout << "Total Balance: " << "$" << bal << endl;
 	cout << "Times deposited: " << depositCount << endl;
 	cout << "Times withdrawn: " << withdrawCount << endl;
 	cout << "Times transferred: " << transferCount << endl;
