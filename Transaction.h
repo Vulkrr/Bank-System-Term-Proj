@@ -14,10 +14,23 @@ This process can be put into a function in the transaction cpp file and called e
 
 class Transaction : public SavingAccount, public CheckingAccount {
 	string transactionType; //The spelling and capitalization of this will be important for validation. It must be either "Withdrawal", "Deposit", or "Transfer" (we can add more later or change if needed)
-	double transactionAmount, snapshotBalance; //Snapshot balance will just save what the balance was at the time of transaction
+	double transactionAmnt, snapshotBal; //Snapshot balance will just save what the balance was at the time of transaction
 	bool overdraft; //If the transaction resulted in an overdraft, it will display info about that
 public:
 	Transaction();
-	
+	Transaction(string _transactionType, double _transactionAmnt, double _snapshotBal, bool _overdraft);
+
+	void setAll(string _transactionType, double _transactionAmnt, double _snapshotBal, bool _overdraft);
+	void setTransactionType(string _transactionType);
+	void setTransactionAmnt(double _transactionAmnt);
+	void setSnapshotBal(double _snapshotBal);
+	void setOverdraft(bool _overdraft);
+
+	string getTransactionType() const;
+	double getTransactionAmnt() const;
+	double getSnapshotBal() const;
+	bool getOverdraft() const;
+
+	void printTransaction();
 };
 #endif // !_ACCOUNT_

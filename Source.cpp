@@ -27,8 +27,6 @@ int main()
 	SavingAccount savingAccList[savingAccLimit];
 
 	//Transaction history vector (not implemented yet)
-	vector<Customer>customerPtrs;
-
 	vector<Transaction> transactionList;
 
 	//Flags
@@ -36,7 +34,7 @@ int main()
 
 	//Option inputs
 	int mainMenuOpt, subMenuOpt, accTypeOpt, menuReturnOpt, checkingAccOpt, savingAccOpt; 
-	char existingOpt, confirmOpt;
+	char confirmOpt;
 
 	//Info inputs
 	string fname, lname, address, email, phoneNumber, accName; 
@@ -227,7 +225,7 @@ int main()
 						getline(cin, accName);
 					}
 
-					checkingAccList[checkingAccCount].setAll((checkingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex],overdraftLimit); //Checking account creation
+					checkingAccList[checkingAccCount].setAll((checkingAccCount + 1), 0, 0, 0, 0, 0, accName, &customerList[customerIndex],overdraftLimit); //Checking account creation
 					cout << "-------------------------------------------------------------------------------------" << endl;
 					cout << "You have successfully created a checking account named " << "\"" << accName << "\"." << endl;
 					checkingAccCount++;
@@ -245,7 +243,7 @@ int main()
 						getline(cin, accName);
 					}
 
-					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex], interestRateValue); //Saving account creation
+					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, 0, accName, &customerList[customerIndex], interestRateValue); //Saving account creation
 					cout << "You have successfully created a saving account named " << "\"" << accName << "\"." << endl;
 					savingAccCount++;
 				}
@@ -996,7 +994,7 @@ int main()
 
 							if (confirmOpt == 'Y' || confirmOpt == 'y')
 							{
-								checkingAccList[checkingAccIndex].getLoan(loanAmnt);
+								checkingAccList[checkingAccIndex].setLoan(loanAmnt);
 								cout << " Congrats your debt has grown! " << endl;
 								cout << "-------------------------------" << endl;
 							}

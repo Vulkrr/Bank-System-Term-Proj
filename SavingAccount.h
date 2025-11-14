@@ -9,15 +9,14 @@ class SavingAccount : public Account {
 	double interestRate;
 public:
 	SavingAccount();
-	SavingAccount(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo, double _interestRate);
+	SavingAccount(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, double _loan, string _accName, Customer* _customerInfo, double _interestRate);
 
-	void setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo, double _interestRate);
+	void setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, double _loan, string _accName, Customer* _customerInfo, double _interestRate);
 	void setInterestRate(double _interestRate);
 
 	double getInterestRate() const;
 
 	void payInterest();
-	void transfer(double _amount, SavingAccount & _destinationAccount);
 };
 
 #endif // !_SAVINGACCOUNT_
