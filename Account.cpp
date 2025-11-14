@@ -11,7 +11,7 @@ Account::Account() {
 	customerInfo = nullptr;
 }
 Account::Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo) {
-	ID = _ID;
+	setID(_ID);
 	setWithdrawCount(_withdrawCount);
 	setDepositCount(_depositCount);
 	setTransferCount(_transferCount);
@@ -21,7 +21,7 @@ Account::Account(int _ID, int _withdrawCount, int _depositCount, int _transferCo
 }
 
 void Account::setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo) {
-	ID = _ID;
+	setID(_ID);
 	setWithdrawCount(_withdrawCount);
 	setDepositCount(_depositCount);
 	setTransferCount(_transferCount);
@@ -31,7 +31,14 @@ void Account::setAll(int _ID, int _withdrawCount, int _depositCount, int _transf
 }
 void Account::setID(int _ID)
 {
-	ID = _ID;
+	if (_ID > 0)
+	{
+		ID = _ID;
+	}
+	else
+	{
+		ID = 0;
+	}
 }
 void Account::setWithdrawCount(int _withdrawCount)
 {
