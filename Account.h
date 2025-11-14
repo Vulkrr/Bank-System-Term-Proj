@@ -13,15 +13,14 @@ protected:
 	double bal, loan;
 public:
 	Account();
-	Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, double _loan, string _accName, Customer* _customerInfo);
+	Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo);
 
-	void setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, double _loan, string accName, Customer* _customerInfo);
+	void setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string accName, Customer* _customerInfo);
 	void setID(int _ID);
 	void setWithdrawCount(int _withdrawCount);
 	void setDepositCount(int _depositCount);
 	void setTransferCount(int _transferCount);
 	void setBal(double _bal);
-	void setLoan(double _loan);
 	void setAccName(string _accName);
 	void setCustomerInfo(Customer* _customerInfo);
 
