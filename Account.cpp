@@ -10,24 +10,22 @@ Account::Account() {
 	loan = 0;
 	customerInfo = nullptr;
 }
-Account::Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, double _loan, string _accName, Customer* _customerInfo) {
+Account::Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo) {
 	ID = _ID;
 	setWithdrawCount(_withdrawCount);
 	setDepositCount(_depositCount);
 	setTransferCount(_transferCount);
 	setBal(_bal);
-	setLoan(_loan);
 	setAccName(_accName);
 	customerInfo = _customerInfo;
 }
 
-void Account::setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, double _loan, string _accName, Customer* _customerInfo) {
+void Account::setAll(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo) {
 	ID = _ID;
 	setWithdrawCount(_withdrawCount);
 	setDepositCount(_depositCount);
 	setTransferCount(_transferCount);
 	setBal(_bal);
-	setLoan(_loan);
 	setAccName(_accName);
 	customerInfo = _customerInfo;
 }
