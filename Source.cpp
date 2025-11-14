@@ -230,7 +230,7 @@ int main()
 						getline(cin, accName);
 					}
 
-					checkingAccList[checkingAccCount].setAll((checkingAccCount + 1), 0, 0, 0, 0, 0, accName, &customerList[customerIndex],overdraftLimit); //Checking account creation
+					checkingAccList[checkingAccCount].setAll((checkingAccCount + 1), 0, 0, 0, 0 ,accName, &customerList[customerIndex],overdraftLimit); //Checking account creation
 					cout << "-------------------------------------------------------------------------------------" << endl;
 					cout << "You have successfully created a checking account named " << "\"" << accName << "\"." << endl;
 					checkingAccCount++;
@@ -248,7 +248,7 @@ int main()
 						getline(cin, accName);
 					}
 
-					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, 0, accName, &customerList[customerIndex], interestRateValue); //Saving account creation
+					savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex], interestRateValue); //Saving account creation
 					cout << "You have successfully created a saving account named " << "\"" << accName << "\"." << endl;
 					savingAccCount++;
 				}
@@ -1030,7 +1030,7 @@ int main()
 
 							if (confirmOpt == 'Y' || confirmOpt == 'y')
 							{
-								checkingAccList[checkingAccIndex].setLoan(loanAmnt);
+								
 								cout << " Congrats your debt has grown! " << endl;
 								cout << "-------------------------------" << endl;
 
@@ -1286,13 +1286,13 @@ int main()
 										for (int i = checkingAccIndex; i < checkingAccCount; i++)
 										{
 											checkingAccList[i].setAll(checkingAccList[i + 1].getID(), checkingAccList[i + 1].getWithdrawCount(), checkingAccList[i + 1].getDepositCount(),
-												checkingAccList[i + 1].getTransferCount(), checkingAccList[i + 1].getBal(), checkingAccList[i + 1].getLoan(),
+												checkingAccList[i + 1].getTransferCount(), checkingAccList[i + 1].getBal(),
 												checkingAccList[i + 1].getAccName(), checkingAccList[i + 1].getCustomerInfo(), checkingAccList[i + 1].getOverdraftLimit());
 										}
 									}
 									else
 									{
-										checkingAccList[checkingAccCount].setAll(0, 0, 0, 0, 0, 0, "", nullptr, 0);
+										checkingAccList[checkingAccCount].setAll(0, 0, 0, 0, 0, "", nullptr, 0);
 									}
 									checkingAccCount--;
 								}
@@ -1343,13 +1343,13 @@ int main()
 										for (int i = savingAccIndex; i < savingAccCount; i++) //If the deleted account is not in the last index, move all the following accounts to fill the gap
 										{
 											savingAccList[i].setAll(savingAccList[i + 1].getID(), savingAccList[i + 1].getWithdrawCount(), savingAccList[i + 1].getDepositCount(),
-												savingAccList[i + 1].getTransferCount(), savingAccList[i + 1].getBal(), savingAccList[i + 1].getLoan(),
+												savingAccList[i + 1].getTransferCount(), savingAccList[i + 1].getBal(),
 												savingAccList[i + 1].getAccName(), savingAccList[i + 1].getCustomerInfo(), savingAccList[i + 1].getInterestRate());
 										}
 									}
 									else
 									{
-										savingAccList[savingAccCount].setAll(0, 0, 0, 0, 0, 0, "", nullptr, 0);
+										savingAccList[savingAccCount].setAll(0, 0, 0, 0, 0, "", nullptr, 0);
 									}
 									savingAccCount--;
 								}
