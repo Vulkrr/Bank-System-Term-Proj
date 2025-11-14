@@ -13,6 +13,12 @@ using namespace std;
 //Start working on transaction history
 //Put customer credentials into a miscfunction getCredentials()
 
+int totalCustomerCount = 0, customerIndex = 0,
+checkingAccCount = 0, checkingAccIndex = 0,
+savingAccCount = 0, savingAccIndex = 0,
+transferPullIndex = 0, transferPushIndex = 0,
+transactionCount = 0, generalAccIndex = 0;
+
 int main() 
 {
 	//Array limits
