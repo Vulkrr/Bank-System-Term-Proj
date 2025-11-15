@@ -33,13 +33,14 @@ int main()
 		checkingAccCount = 0, checkingAccIndex = 0,
 		savingAccCount = 0, savingAccIndex = 0,
 		transferPullIndex = 0, transferPushIndex = 0,
-		transactionCount = 0, generalAccIndex = 0;
+		transactionCount = 0, transactionIndex,
+		generalAccIndex = 0;
 
 	//Flags
 	bool customerFound = false, duplicateInfo = false;
 
 	//Option inputs
-	int mainMenuOpt, subMenuOpt, accTypeOpt, menuReturnOpt, checkingAccOpt, savingAccOpt, generalAccOpt;
+	int mainMenuOpt, subMenuOpt, accTypeOpt, menuReturnOpt = 2, checkingAccOpt, savingAccOpt, generalAccOpt;
 	char confirmOpt;
 
 	//Info inputs
@@ -48,7 +49,7 @@ int main()
 	//Amount inputs
 	double depositAmnt, withdrawAmnt, transferAmnt;
 
-	//Misc
+	//Miscfan 
 	int uniqueID = 800;
 
 	do
@@ -156,7 +157,9 @@ int main()
 				customerList[totalCustomerCount].setAll(fname, lname, address, phoneNumber, email);
 				cout << "Customer successfully added to system." << endl;
 				totalCustomerCount++;
-				customerFound = true;
+				cout << "Press any key to return to menu: ";
+				cin.ignore();
+				cin.get();
 			}
 			else //Create an account for existing customer
 			{
@@ -1007,75 +1010,75 @@ int main()
 								}
 							}
 						}
-						else if (subMenuOpt == 4) {
+						else  //LOAN
+						{
+							system("cls");
+
+							cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
+							cout << "--------------------------------------------------------------" << endl;
+							for (int i = 0; i < checkingAccCount; i++)
 							{
-								system("cls");
-
-								cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
-								cout << "--------------------------------------------------------------" << endl;
-								for (int i = 0; i < checkingAccCount; i++)
-								{
-									cout << i + 1 << ". " << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
-								}
-								cout << "--------------------------------------------------------------" << endl;
-
-								cout << "Select an account to add a loan to: ";  //Select a checking account
-								cin >> checkingAccOpt;
-								while (checkingAccOpt < 1 || checkingAccOpt >= checkingAccCount) //Input validation
-								{
-									if (cin.fail())
-									{
-										cin.clear();
-										cin.ignore(numeric_limits<streamsize>::max(), '\n');
-									}
-									cout << "Invalid option. Please select an option 1-" << checkingAccCount - 1 << ": ";
-									cin >> checkingAccOpt;
-								}
-
-								checkingAccIndex = checkingAccOpt - 1;
-								system("cls");
-								cout << "Please select which loan you would like to add by entering the amount of the loan: " << endl; //Enter loan amount
-								cout << "$1000 --- 2.5% APR ---- 5 months" << endl;
-								cout << "$2000 --- 5.8% APR ---- 8 months" << endl;
-								cout << "$200,000 --- 16% APR --- 30 years" << endl;
-								double loanAmnt = 0;
-								cin >> loanAmnt;
-
-								while (loanAmnt != 1000 && loanAmnt != 2000 && loanAmnt != 200000)
-								{
-									cout << "Error: Incorrect Loan Selected." << endl; //Input validation
-									cout << "Please select which loan you would like to add by entering the amount of the loan: ";
-									cin >> depositAmnt;
-								}
-
-								cout << "Are you sure you want to take loan $" << loanAmnt << " and add to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
-								cin >> confirmOpt;
-
-								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
-								{
-									cout << "Invalid response. Please selection an option Y/N: ";
-									cin >> confirmOpt;
-								}
-
-								if (confirmOpt == 'Y' || confirmOpt == 'y')
-								{
-									cout << " Congrats your debt has grown! (Not implemented)." << endl;
-									cout << "-------------------------------" << endl;
-
-									Transaction t("Loan", loanAmnt, checkingAccList[checkingAccIndex].getBal()); //Create a new transaction object
-									transactionList.push_back(t); //Add the object to transaction list
-									transactionCount++; //Increase transaction counter
-								}
-
-								cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
-								cin >> menuReturnOpt;
+								cout << i + 1 << ". " << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
 							}
+							cout << "--------------------------------------------------------------" << endl;
+
+							cout << "Select an account to add a loan to: ";  //Select a checking account
+							cin >> checkingAccOpt;
+							while (checkingAccOpt < 1 || checkingAccOpt >= checkingAccCount) //Input validation
+							{
+								if (cin.fail())
+								{
+									cin.clear();
+									cin.ignore(numeric_limits<streamsize>::max(), '\n');
+								}
+								cout << "Invalid option. Please select an option 1-" << checkingAccCount - 1 << ": ";
+								cin >> checkingAccOpt;
+							}
+
+							checkingAccIndex = checkingAccOpt - 1;
+							system("cls");
+							cout << "Please select which loan you would like to add by entering the amount of the loan: " << endl; //Enter loan amount
+							cout << "$1000 --- 2.5% APR ---- 5 months" << endl;
+							cout << "$2000 --- 5.8% APR ---- 8 months" << endl;
+							cout << "$200,000 --- 16% APR --- 30 years" << endl;
+							double loanAmnt = 0;
+							cin >> loanAmnt;
+
+							while (loanAmnt != 1000 && loanAmnt != 2000 && loanAmnt != 200000)
+							{
+								cout << "Error: Incorrect Loan Selected." << endl; //Input validation
+								cout << "Please select which loan you would like to add by entering the amount of the loan: ";
+								cin >> depositAmnt;
+							}
+
+							cout << "Are you sure you want to take loan $" << loanAmnt << " and add to \"" << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): ";
+							cin >> confirmOpt;
+
+							while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
+							{
+								cout << "Invalid response. Please selection an option Y/N: ";
+								cin >> confirmOpt;
+							}
+
+							if (confirmOpt == 'Y' || confirmOpt == 'y')
+							{
+								cout << " Congrats your debt has grown! (Not implemented)." << endl;
+								cout << "-------------------------------" << endl;
+
+								Transaction t("Loan", loanAmnt, checkingAccList[checkingAccIndex].getBal()); //Create a new transaction object
+								transactionList.push_back(t); //Add the object to transaction list
+								transactionCount++; //Increase transaction counter
+							}
+
+							cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
+							cin >> menuReturnOpt;
 						}
 					} while (subMenuOpt != 5 || menuReturnOpt != 2);
-				}
-				customerFound = false; //Reset flag
+				} 
+			}
+			customerFound = false; //Reset flag
 
-				break;
+			break;
 		case 3: //OPTION 3: Modify or delete accounts
 			system("cls");
 			cout << "---------------------------------------" << endl;
@@ -1331,7 +1334,7 @@ int main()
 							else //DELETE A SAVING ACCOUNT
 							{
 								system("cls");
-
+								cout << "--------------------------------------------------------------" << endl;
 								cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display saving accounts
 								cout << "--------------------------------------------------------------" << endl;
 								for (int i = 0; i < savingAccCount; i++)
@@ -1463,7 +1466,7 @@ int main()
 					}
 				}
 
-				if (customerFound == true)
+				if (customerFound == true) //If customer is found, show sub menu
 				{
 					system("cls");
 					
@@ -1476,7 +1479,7 @@ int main()
 					cout << "Select one of the above options: ";
 					cin >> subMenuOpt;
 
-					while (subMenuOpt < 1 || subMenuOpt > 2)
+					while (subMenuOpt < 1 || subMenuOpt > 3)
 					{
 						if (cin.fail())
 						{
@@ -1484,14 +1487,46 @@ int main()
 							cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						}
 						cout << "Invalid option." << endl;
-						cout << "Please select an option 1-2: ";
+						cout << "Please select an option 1-3: ";
 						cin >> subMenuOpt;
 					}
 
-					if (subMenuOpt == 1)
+					if (subMenuOpt == 1) //GENERAL INFO
+					{
+						system("cls");
+						cout << "---------------------------------------" << endl;
+						customerList[customerIndex].printInfoFull();
+						savingAccList[0].printInfo();
+						cout << "---------------------------------------" << endl;
+					}
+					else if (subMenuOpt == 2) //TRANSACTION HISTORY
+					{
+
+						transactionIndex = 0;
+						cout << "--------------------------------------------------------------" << endl;
+						cout << left << setw(40) << "Account Name" << left << setw(20) << "Transaction Type" << left << setw(20) << "Amount" << left << setw(20) << "Snapshot Balance" << endl; 
+						cout << "--------------------------------------------------------------" << endl;
+						cout << "This part is still under construction but will show a list of the customer's transactions." << endl;
+					}
+					else //VIEW ACCOUNT LIST
 					{
 						system("cls");
 
+						cout << "-------------------------------CHEKCING ACCOUNTS--------------------------------" << endl; //Display all checking accounts
+						cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
+						cout << "--------------------------------------------------------------" << endl;
+						for (generalAccIndex = 0; generalAccIndex < checkingAccCount; generalAccIndex++)
+						{
+							cout << generalAccIndex + 1 << ". " << left << setw(40) << checkingAccList[generalAccIndex].getAccName() << left << setw(20) << checkingAccList[generalAccIndex].getBal() << endl;
+						}
+
+						cout << "-------------------------------SAVING ACCOUNTS--------------------------------" << endl; //Display all saving accounts
+						cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
+						cout << "--------------------------------------------------------------" << endl;
+						for (generalAccIndex; generalAccIndex < savingAccCount; generalAccIndex++)
+						{
+							cout << generalAccIndex + 1 << ". " << left << setw(40) << savingAccList[generalAccIndex].getAccName() << left << setw(20) << savingAccList[generalAccIndex].getBal() << endl;
+						}
 					}
 				}
 			}
@@ -1507,7 +1542,7 @@ int main()
 
 			if (totalCustomerCount == 0)
 			{
-				cout << "Error: There are no customers in the system." << endl << endl;
+				cout << "Error: There are no customers in the system." << endl;
 			}
 			else
 			{
@@ -1524,9 +1559,14 @@ int main()
 			cin.ignore();
 			cin.get();
 			break;
-			}
 		}
-	} while (mainMenuOpt != 6 || menuReturnOpt != 2);
+
+		if (menuReturnOpt != 2)
+		{
+			break;
+		}
+
+	} while (mainMenuOpt != 6);
 
 	cout << "Toodles." << endl;
 	return 0;

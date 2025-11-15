@@ -64,6 +64,7 @@ string Customer::getEmail() const {
 }
 
 void Customer::printInfoFull() {
+
 	cout << "Name: " << fname << " " << lname << endl;
 	cout << "Address: " << address << endl;
 	cout << "Phone #: " << phoneNumber.substr(0, 3) << "-" << phoneNumber.substr(3, 3) << left << "-" << phoneNumber.substr(7) << endl;

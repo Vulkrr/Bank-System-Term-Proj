@@ -10,7 +10,7 @@ class Account {
 	Customer* customerInfo;
 protected:
 	string accName;
-	double bal, loan;
+	double bal;
 public:
 	Account();
 	Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo);
@@ -29,7 +29,6 @@ public:
 	int getDepositCount() const;
 	int getTransferCount() const;
 	double getBal() const;
-	double getLoan() const;
 	string getAccName() const;
 	Customer* getCustomerInfo() const;
 

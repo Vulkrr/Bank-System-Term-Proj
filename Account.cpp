@@ -7,7 +7,6 @@ Account::Account() {
 	depositCount = 0;
 	transferCount = 0;
 	bal = 0;
-	loan = 0;
 	customerInfo = nullptr;
 }
 Account::Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo) {
@@ -115,10 +114,6 @@ double Account::getBal() const
 {
 	return bal;
 }
-double Account::getLoan() const
-{
-	return loan;
-}
 string Account::getAccName() const
 {
 	return accName;
@@ -172,7 +167,6 @@ void Account::printInfo()
 {
 	if (customerInfo != nullptr)
 		customerInfo->printInfoFull();
-	cout << "-------------" << endl;
 	cout << "Total Balance: " << "$" << bal << endl;
 	cout << "Times deposited: " << depositCount << endl;
 	cout << "Times withdrawn: " << withdrawCount << endl;
