@@ -14,7 +14,7 @@ using namespace std;
 int main()
 {
 	//Bank limits
-	const double interestRateValue = 1.02, overdraftLimit = 500, accNameLimit = 30;
+	const double interestRate = 1.02, overdraftLimit = 500, accNameLimit = 30;
 
 	//Array limits
 	const int customerLimit = 10, checkingAccLimit = 30, savingAccLimit = 30;
@@ -38,7 +38,7 @@ int main()
 		transactionCount = 0, transactionIndex = 0;
 
 	//Flags
-	bool customerFound = false, accFound = false, duplicateInfo = false;
+	bool customerFound = false, accFound = false, duplicateInfo = false, hasCheckingAcc = false, hasSavingAcc = false;
 
 	//Option inputs
 	int mainMenuOpt, subMenuOpt, accTypeOpt, menuReturnOpt = 2, checkingAccOpt, savingAccOpt, generalAccOpt;
@@ -82,10 +82,10 @@ int main()
 		case 1: //OPTION 1: CREATE AN ACCOUNT
 			system("cls");
 
-			cout << "---------------------------------------------------------" << endl;
+			cout << "-------------------------------------------------------------------------------------" << endl;
 			cout << "1. Create a new customer profile" << endl;
 			cout << "2. Create an account for an existing customer" << endl;
-			cout << "---------------------------------------------------------" << endl;
+			cout << "-------------------------------------------------------------------------------------" << endl;
 			cout << "Select one of the above options:" << endl;
 			cin >> subMenuOpt;
 			while (subMenuOpt < 1 || subMenuOpt > 2) //Input validation
@@ -102,17 +102,17 @@ int main()
 			if (subMenuOpt == 1) //CREATE A NEW CUSTOMER PROFILE
 			{
 				system("cls");
-				cout << "-------------------------------------------------------------" << endl;
+				cout << "=========================CREATE A CUSTOMER PROFILE=========================" << endl;
 				cout << "Please enter the following information for the new customer: " << endl;
 				cout << "Enter customer first name: ";
 				cin >> fname;
 				cout << "Enter customer last name: ";
 				cin >> lname;
+				cin.ignore();
 				do //Ensure there are no duplicate addresses
 				{
 					duplicateInfo = false;
 					cout << "Enter customer address: ";
-					cin.ignore();
 					getline(cin, address);
 					for (int i = 0; i < totalCustomerCount; i++)
 					{
@@ -169,8 +169,7 @@ int main()
 					do
 					{
 						system("cls");
-						cout << "--------------------------------------------" << endl; //Get customer credentials (by last name and phone number)
-						cout << "Please enter the following credentials:" << endl;
+						cout << "Please enter the following credentials:" << endl; //Get customer credentials (by last name and phone number)
 						cout << "Enter customer last name: ";
 						cin >> lname;
 						cout << "Enter customer phone number (digits only): ";
@@ -182,13 +181,14 @@ int main()
 							{
 								customerFound = true;
 								customerIndex = i;
+								customerPtr = &customerList[customerIndex];
 								break;
 							}
 						}
 
 						if (customerFound == false) //If customer isn't found, prompt user to try again or exit
 						{
-							cout << "Error: Customer does not exist or credentials are wrong." << endl; 
+							cout << "Error: Customer does not exist or was not found." << endl; 
 							cout << "Press 1 to try again or 2 to return to main menu: ";
 							cin >> menuReturnOpt;
 							while (menuReturnOpt < 1 || menuReturnOpt > 2) //Input validation
@@ -214,10 +214,10 @@ int main()
 						do
 						{
 							system("cls");
-							cout << "-------------------------------------------------------" << endl; //Account creation selection
+							cout << "-------------------------------------------------------------------------------------" << endl; //Account creation selection
 							cout << "1. Checking account" << endl;
 							cout << "2. Saving account" << endl;
-							cout << "-------------------------------------------------------" << endl;
+							cout << "-------------------------------------------------------------------------------------" << endl;;
 							cout << "Select which type of account you would like to create: " << endl;
 							cin >> accTypeOpt;
 							while (accTypeOpt < 1 || accTypeOpt > 2) //Input validation
@@ -230,27 +230,36 @@ int main()
 								cout << "Error: Invalid option. Please enter an option 1-2: ";
 								cin >> accTypeOpt;
 							}
+							cin.ignore();
 
 							if (accTypeOpt == 1) //CREATE A CHECKING ACCOUNT
 							{
-								system("cls");
-								cout << "------------------------------" << endl;
+								cout << "-------------------------------------------------------------------------------------" << endl;
 								do
 								{
 									duplicateInfo = false;
 									cout << "Enter a name for this account: ";
-									cin.ignore();
 									getline(cin, accName);
-									while (accName.length() >= accNameLimit) //Input validation
+									while (accName.length() > accNameLimit) //Input validation
 									{
 										cout << "Error: Account name must be 30 characters or less. Please try again." << endl;
 										cout << "Enter a name for this account: ";
 										getline(cin, accName);
 									}
 
-									for (int i = 0; i < checkingAccCount; i++) //Ensure there are no account name duplicates
+									for (int i = 0; i < checkingAccCount; i++) //Ensure there are no checking account name duplicates
 									{
 										if (customerPtr == checkingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName()) 
+										{
+											duplicateInfo = true;
+											cout << "Error: An account with this name already exists. Please use a unique name." << endl;
+											break;
+										}
+									}
+
+									for (int i = 0; i < savingAccCount; i++) //Ensure there are no saving account name duplicates
+									{
+										if (customerPtr == savingAccList[i].getCustomerInfo() && accName == savingAccList[i].getAccName())
 										{
 											duplicateInfo = true;
 											cout << "Error: An account with this name already exists. Please use a unique name." << endl;
@@ -273,18 +282,27 @@ int main()
 								{
 									duplicateInfo = false;
 									cout << "Enter a name for this account: ";
-									cin.ignore();
 									getline(cin, accName);
-									while (accName.length() >= accNameLimit) //Input validation
+									while (accName.length() > accNameLimit) //Input validation
 									{
 										cout << "Error: Account name must be 30 characters or less. Please try again." << endl;
 										cout << "Enter a name for this account: ";
 										getline(cin, accName);
 									}
 
-									for (int i = 0; i < savingAccCount; i++) //Ensure there are no account name duplicates
+									for (int i = 0; i < checkingAccCount; i++) //Ensure there are no checking account name duplicates
 									{
-										if (customerPtr == savingAccList[i].getCustomerInfo() && accName == savingAccList[i].getAccName()) 
+										if (customerPtr == checkingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName())
+										{
+											duplicateInfo = true;
+											cout << "Error: An account with this name already exists. Please use a unique name." << endl;
+											break;
+										}
+									}
+
+									for (int i = 0; i < savingAccCount; i++) //Ensure there are no saving account name duplicates
+									{
+										if (customerPtr == savingAccList[i].getCustomerInfo() && accName == savingAccList[i].getAccName())
 										{
 											duplicateInfo = true;
 											cout << "Error: An account with this name already exists. Please use a unique name." << endl;
@@ -293,7 +311,7 @@ int main()
 									}
 								} while (duplicateInfo);
 
-								savingAccList[savingAccCount].setAll(uniqueID, 0, 0, 0, 0, accName, &customerList[customerIndex], interestRateValue); //Add a saving account to system
+								savingAccList[savingAccCount].setAll(uniqueID, 0, 0, 0, 0, accName, &customerList[customerIndex], interestRate); //Add a saving account to system
 								cout << "You have successfully created a saving account named " << "\"" << accName << "\"." << endl;
 								savingAccCount++;
 								uniqueID++;
@@ -310,7 +328,11 @@ int main()
 									cin >> menuReturnOpt;
 								}
 							}
-						} while (menuReturnOpt != 2);
+						} while (menuReturnOpt == 1);
+					}
+					else
+					{
+						cout << "Error: Customer does not exist or was not found." << endl;
 					}
 				}
 				else
@@ -326,7 +348,7 @@ int main()
 			break;
 		case 2: //OPTION 2: MAKE A TRANSACTION
 			system("cls");
-			cout << "--------------------------------------------" << endl;
+			cout << "-------------------------------------------------------------------------------------" << endl;
 
 			if (totalCustomerCount == 0) //If there are no existing customers, exit this menu
 			{
@@ -383,7 +405,7 @@ int main()
 					do
 					{
 						system("cls");
-						cout << "-------------------------------------------" << endl; //TRANSACTION SUB-MENU
+						cout << "-------------------------------------------------------------------------------------" << endl; //TRANSACTION SUB-MENU
 						cout << "Please select one of the following options:" << endl;
 						cout << "1. Deposit" << endl;
 						cout << "2. Withdraw" << endl;
@@ -402,7 +424,7 @@ int main()
 							cin >> subMenuOpt;
 						}
 
-						if (subMenuOpt == 1) //OPTION 1: DEPOSIT 
+						if (subMenuOpt == 1) //SUB-OPTION 1: DEPOSIT 
 						{
 							system("cls");
 							cout << "Select which type of account to deposit to: " << endl; //Checking/Saving selection
@@ -565,7 +587,7 @@ int main()
 								}
 							}
 						}
-						else if (subMenuOpt == 2) //OPTION 2: WITHDRAW
+						else if (subMenuOpt == 2) //SUB-OPTION 2: WITHDRAW
 						{
 							system("cls");
 
@@ -746,7 +768,7 @@ int main()
 								}
 							}							
 						}
-						else if (subMenuOpt == 3) //OPTION 3: TRANSFER
+						else if (subMenuOpt == 3) //SUB-OPTION 3: TRANSFER
 						{
 							system("cls");
 							
@@ -954,7 +976,7 @@ int main()
 								{
 									system("cls");
 
-									cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display saving accounts
+									cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display saving accounts
 									cout << "--------------------------------------------------------------" << endl;
 									for (int i = 0; i < savingAccCount; i++) //Only display the customer's accounts
 									{
@@ -1121,7 +1143,7 @@ int main()
 								cout << "Error: Customer must have at least 2 accounts to make transfers." << endl;
 							}
 						}
-						else  //OPTION 4: LOAN (WIP)
+						else  //SUB-OPTION 4: LOAN (WIP)
 						{
 
 							cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
@@ -1219,7 +1241,7 @@ int main()
 			customerFound = false; //Reset flag
 
 			break;
-		case 3: //OPTION 3: Modify or delete accounts
+		case 3: //OPTION 3: MODIFY OR DELETE ACCOUNTS
 			system("cls");
 			cout << "-------------------------------------------------------------------------------------" << endl;
 
@@ -1294,7 +1316,7 @@ int main()
 						cin >> subMenuOpt;
 					}
 
-					if (subMenuOpt == 1) //CHANGING ACCOUNT NAME
+					if (subMenuOpt == 1) //CHANGE AN ACCOUNT NAME
 					{
 						system("cls");
 
@@ -1303,8 +1325,8 @@ int main()
 							system("cls");
 
 							//Display all checking accounts
-							cout << "-------------------------------" << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getFname() << "'s Checking Accounts--------------------------------" << endl;
-							cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
+							cout << "-------------------------------" << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getLname() << "'s Checking Accounts--------------------------------" << endl;
+							cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
 							cout << "--------------------------------------------------------------" << endl;
 							for (int i = 0; i < checkingAccCount; i++) //Only display the customer's accounts
 							{
@@ -1313,57 +1335,155 @@ int main()
 									cout << left << setw(20) << checkingAccList[i].getID() << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
 								}
 							}
+
 							//Display all saving accounts
-							cout << "-------------------------------" << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getFname() << "'s Saving Accounts--------------------------------" << endl;
-							cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
+							cout << "-------------------------------" << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getLname() << "'s Saving Accounts--------------------------------" << endl;
+							cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display saving accounts
 							cout << "--------------------------------------------------------------" << endl;
-							for (int i = 0; i < checkingAccCount; i++) //Only display the customer's accounts
+							for (int i = 0; i < savingAccCount; i++) //Only display the customer's accounts
 							{
-								if (customerPtr == checkingAccList[i].getCustomerInfo())
+								if (customerPtr == savingAccList[i].getCustomerInfo())
 								{
-									cout << left << setw(20) << checkingAccList[i].getID() << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
+									cout << left << setw(20) << savingAccList[i].getID() << left << setw(40) << savingAccList[i].getAccName() << left << setw(20) << savingAccList[i].getBal() << endl;
+								}
+							}
+							cout << "--------------------------------------------------------------" << endl;
+							cout << "Enter the name of the account you would like to edit: ";
+							cin >> accName;
+
+							bool checkingAccFound = false;
+							bool savingAccFound = false;
+
+							for (int i = 0; i < checkingAccCount; i++) //Find a name match for checking accounts
+							{
+								if (customerPtr == checkingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName())
+								{
+									checkingAccFound = true;
+									checkingAccIndex = i;
+									transferPushIndex = i;
+									break;
 								}
 							}
 
-							cout << "--------------------------------------------------------------" << endl;
-							cout << "Select an account to edit: ";  //Select an account
-							cin >> generalAccOpt;
-							while (generalAccOpt < 1 || generalAccOpt >= generalAccIndex) //Input validation
+							for (int i = 0; i < savingAccCount; i++) //Find a name match for saving accounts
 							{
-								if (cin.fail())
+								if (customerPtr == savingAccList[i].getCustomerInfo() && accName == savingAccList[i].getAccName())
 								{
-									cin.clear();
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
+									savingAccFound = true;
+									savingAccIndex = i;
+									transferPushIndex = i;
+									break;
 								}
-								cout << "Invalid option. Please select an option 1-" << generalAccIndex - 1 << ": ";
-								cin >> checkingAccOpt;
 							}
-
-							generalAccIndex = generalAccOpt - 1;
-
-							cout << "Are you sure you want to edit \"" << checkingAccList[generalAccIndex].getAccName() << "\"? (Y/N): ";
-							cin >> confirmOpt;
-
-							while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N')
+						
+							if (checkingAccFound)
 							{
-								cout << "Invalid response. Please selection an option Y/N: ";
+								cout << "Are you sure you want to edit " << checkingAccList[checkingAccIndex].getAccName() << "? (Y/N): ";
 								cin >> confirmOpt;
-							}
-
-							if (confirmOpt == 'Y' || confirmOpt == 'y')
-							{
-								system("cls");
-								cout << "--------------------------------------------------------------" << endl;
-								cout << "Enter a new name for \"" << checkingAccList[checkingAccIndex].getAccName() << "\": ";
-								cin >> accName;
-								while (accName == checkingAccList[checkingAccIndex].getAccName()) //Input validation
+								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N') //Input validation
 								{
-									cout << "Error: New name must be unique. Please enter a new name: ";
-									cin >> accName;
+									cout << "Invalid response. Please selection an option Y/N: ";
+									cin >> confirmOpt;
 								}
 
-								cout << "Successfully renamed account." << endl;
+								if (confirmOpt == 'Y' || confirmOpt == 'y')
+								{
+									system("cls");
+									cout << "--------------------------------------------------------------" << endl;
+									do
+									{
+										duplicateInfo = false;
+										cout << "Enter a new name for this account: ";
+										cin.ignore();
+										getline(cin, accName);
+										while (accName.length() >= accNameLimit) //Input validation
+										{
+											cout << "Error: Account name must be 30 characters or less. Please try again." << endl;
+											cout << "Enter a name for this account: ";
+											getline(cin, accName);
+										}
+
+										for (int i = 0; i < checkingAccCount; i++) //Ensure there are no checking account name duplicates
+										{
+											if (customerPtr == checkingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName())
+											{
+												duplicateInfo = true;
+												cout << "Error: An account with this name already exists. Please use a unique name." << endl;
+												break;
+											}
+										}
+
+										for (int i = 0; i < savingAccCount; i++) //Ensure there are no saving account name duplicates
+										{
+											if (customerPtr == savingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName())
+											{
+												duplicateInfo = true;
+												cout << "Error: An account with this name already exists. Please use a unique name." << endl;
+												break;
+											}
+										}										
+									} while (duplicateInfo);
+
+									checkingAccList[checkingAccIndex].setAccName(accName);
+									cout << "Successfully renamed account to " << accName << "." << endl;
+								}
 							}
+							else if (savingAccFound)
+							{
+								cout << "Are you sure you want to edit " << savingAccList[savingAccIndex].getAccName() << "? (Y/N): ";
+								cin >> confirmOpt;
+								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N') //Input validation
+								{
+									cout << "Invalid response. Please selection an option Y/N: ";
+									cin >> confirmOpt;
+								}
+
+								if (confirmOpt == 'Y' || confirmOpt == 'y')
+								{
+									system("cls");
+									cout << "--------------------------------------------------------------" << endl;
+									do
+									{
+										duplicateInfo = false;
+										cout << "Enter a new name for this account: ";
+										cin.ignore();
+										getline(cin, accName);
+										while (accName.length() >= accNameLimit) //Input validation
+										{
+											cout << "Error: Account name must be 30 characters or less. Please try again." << endl;
+											cout << "Enter a name for this account: ";
+											getline(cin, accName);
+										}
+
+										for (int i = 0; i < checkingAccCount; i++) //Ensure there are no checking account name duplicates
+										{
+											if (customerPtr == checkingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName())
+											{
+												duplicateInfo = true;
+												cout << "Error: An account with this name already exists. Please use a unique name." << endl;
+												break;
+											}
+										}
+
+										for (int i = 0; i < savingAccCount; i++) //Ensure there are no saving account name duplicates
+										{
+											if (customerPtr == savingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName())
+											{
+												duplicateInfo = true;
+												cout << "Error: An account with this name already exists. Please use a unique name." << endl;
+												break;
+											}
+										}		
+									} while (duplicateInfo);
+								}
+
+								savingAccList[savingAccIndex].setAccName(accName);
+								cout << "Successfully renamed account to " << accName << "." << endl;
+							}
+							else
+							{
+								cout << "Error: Account does not exist or was not found." << endl;
+							}							
 
 							cout << "Press 1 to edit a new account or 2 to return to main menu: ";
 							cin >> menuReturnOpt;
@@ -1382,14 +1502,16 @@ int main()
 						} while (menuReturnOpt == 1);
 
 					}
-					else //DELETING AN ACCOUNT
+					else //DELETE AN ACCOUNT
 					{
 						do
 						{
 							system("cls");
-							cout << "Select which type of account to delete: " << endl; //Checking/Saving selection
+							cout << "-------------------------------ACCOUNT DELETION-------------------------------" << endl;
 							cout << "1. Checking" << endl;
 							cout << "2. Saving" << endl;
+							cout << "------------------------------------------------------------------------------" << endl;
+							cout << "Select which type of account to delete: " << endl; //Checking/Saving selection
 							cin >> accTypeOpt;
 							while (accTypeOpt < 1 || accTypeOpt > 2) //Input validation
 							{
@@ -1402,118 +1524,169 @@ int main()
 								cin >> accTypeOpt;
 							}
 
+							system("cls");
 							if (accTypeOpt == 1) //DELETE A CHECKING ACCOUNT
-							{
-								system("cls");
-
-								cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
-								cout << "--------------------------------------------------------------" << endl;
-								for (int i = 0; i < checkingAccCount; i++)
+							{							
+								for (int i = 0; i < checkingAccCount; i++) //Ensure the customer has checking accounts to delete
 								{
-									cout << i + 1 << ". " << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
-								}
-								cout << "--------------------------------------------------------------" << endl;
-
-								cout << "Select an account to delete: ";  //Select a checking account
-								cin >> checkingAccOpt;
-								while (checkingAccOpt < 1 || checkingAccOpt >= checkingAccCount) //Input validation
-								{
-									if (cin.fail())
+									if (customerPtr == checkingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName())
 									{
-										cin.clear();
-										cin.ignore(numeric_limits<streamsize>::max(), '\n');
+										hasCheckingAcc = true;
+										checkingAccIndex = i;
+										break;
 									}
-									cout << "Error: Invalid option. Please select an option 1-2" << checkingAccCount - 1 << ": ";
-									cin >> checkingAccOpt;
 								}
-
-								checkingAccIndex = checkingAccOpt - 1;
-
-								cout << "Are you sure you want to delete " << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): "; //Confirm account deletion
-								cin >> confirmOpt;
-
-								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N') //Input validation
+								if (hasCheckingAcc)
 								{
-									cout << "Invalid response. Please selection an option Y/N: ";
-									cin >> confirmOpt;
-								}
-
-								if (confirmOpt == 'Y' || confirmOpt == 'y') //Delete checking account
-								{
-									if (checkingAccIndex < checkingAccCount - 1) //If the deleted account is not in the last index, move all the following accounts to fill the gap
+									cout << "-------------------------------" << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getLname() << "'s Checking Accounts--------------------------------" << endl;
+									cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
+									cout << "--------------------------------------------------------------" << endl;
+									for (int i = 0; i < checkingAccCount; i++) //Only display the customer's accounts
 									{
-										for (int i = checkingAccIndex; i < checkingAccCount; i++)
+										if (customerPtr == checkingAccList[i].getCustomerInfo())
 										{
-											checkingAccList[i].setAll(checkingAccList[i + 1].getID(), checkingAccList[i + 1].getWithdrawCount(), checkingAccList[i + 1].getDepositCount(),
-												checkingAccList[i + 1].getTransferCount(), checkingAccList[i + 1].getBal(),
-												checkingAccList[i + 1].getAccName(), checkingAccList[i + 1].getCustomerInfo(), checkingAccList[i + 1].getOverdraftLimit());
+											cout << left << setw(20) << checkingAccList[i].getID() << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
+										}
+									}
+
+									cout << "Enter the name of the account you would like to delete: ";
+									cin.ignore();
+									getline(cin, accName);
+
+									for (int i = 0; i < checkingAccCount; i++) //Find a name match for account
+									{
+										if (customerPtr == checkingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName())
+										{
+											accFound = true;
+											checkingAccIndex = i;
+											break;
+										}
+									}
+
+									if (accFound)
+									{
+										cout << "Are you sure you want to delete " << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): "; //Confirm account deletion
+										cin >> confirmOpt;
+
+										while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N') //Input validation
+										{
+											cout << "Invalid response. Please selection an option Y/N: ";
+											cin >> confirmOpt;
+										}
+
+										if (confirmOpt == 'Y' || confirmOpt == 'y') //Delete checking account
+										{
+											if (checkingAccIndex < checkingAccCount - 1) //If the deleted account is not in the last index, move all the following accounts to fill the gap
+											{
+												for (int i = checkingAccIndex; i < checkingAccCount; i++)
+												{
+													checkingAccList[i].setAll(checkingAccList[i + 1].getID(), checkingAccList[i + 1].getWithdrawCount(), checkingAccList[i + 1].getDepositCount(),
+														checkingAccList[i + 1].getTransferCount(), checkingAccList[i + 1].getBal(),
+														checkingAccList[i + 1].getAccName(), checkingAccList[i + 1].getCustomerInfo(), checkingAccList[i + 1].getOverdraftLimit());
+												}
+											}
+											else
+											{
+												checkingAccList[checkingAccCount].setAll(0, 0, 0, 0, 0, "", nullptr, 0);
+											}
+											checkingAccCount--;
 										}
 									}
 									else
 									{
-										checkingAccList[checkingAccCount].setAll(0, 0, 0, 0, 0, "", nullptr, 0);
+										cout << "Error: Account does not exist or was not found." << endl;
 									}
-									checkingAccCount--;
 								}
-
-								cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
-								cin >> menuReturnOpt;
+								else
+								{
+									cout << "--------------------------------------------------------------" << endl;
+									cout << "Error: There are no checking accounts to delete." << endl;
+								}					
 							}
 							else //DELETE A SAVING ACCOUNT
 							{
-								system("cls");
-								cout << "--------------------------------------------------------------" << endl;
-								cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display saving accounts
-								cout << "--------------------------------------------------------------" << endl;
-								for (int i = 0; i < savingAccCount; i++)
+								for (int i = 0; i < savingAccCount; i++) //Ensure the customer has saving accounts to delete
 								{
-									cout << i + 1 << ". " << left << setw(40) << savingAccList[i].getAccName() << left << setw(20) << savingAccList[i].getBal() << endl;
-								}
-								cout << "--------------------------------------------------------------" << endl;
-
-								cout << "Select an account to delete: ";  //Select a saving account
-								cin >> savingAccOpt;
-								while (savingAccOpt < 1 || savingAccOpt >= savingAccCount) //Input validation
-								{
-									if (cin.fail())
+									if (customerPtr == savingAccList[i].getCustomerInfo() && accName == savingAccList[i].getAccName())
 									{
-										cin.clear();
-										cin.ignore(numeric_limits<streamsize>::max(), '\n');
+										hasSavingAcc = true;
+										savingAccIndex = i;
+										break;
 									}
-									cout << "Error: Invalid option. Please select an option 1-2" << savingAccCount - 1 << ": ";
-									cin >> savingAccOpt;
 								}
-
-								checkingAccIndex = savingAccOpt - 1;
-
-								cout << "Are you sure you want to delete " << savingAccList[savingAccIndex].getAccName() << "\"? (Y/N): "; //Confirm account deletio
-								cin >> confirmOpt;
-
-								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N') //Input validation
+								if (hasSavingAcc)
 								{
-									cout << "Invalid response. Please selection an option Y/N: ";
-									cin >> confirmOpt;
-								}
-
-								if (confirmOpt == 'Y' || confirmOpt == 'y') //Delete saving account
-								{
-									if (savingAccIndex < checkingAccCount - 1)
+									cout << "-------------------------------" << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getLname() << "'s Saving Accounts--------------------------------" << endl;
+									cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display saving accounts
+									cout << "--------------------------------------------------------------" << endl;
+									for (int i = 0; i < savingAccCount; i++) //Only display the customer's accounts
 									{
-										for (int i = savingAccIndex; i < savingAccCount; i++) //If the deleted account is not in the last index, move all the following accounts to fill the gap
+										if (customerPtr == savingAccList[i].getCustomerInfo())
 										{
-											savingAccList[i].setAll(savingAccList[i + 1].getID(), savingAccList[i + 1].getWithdrawCount(), savingAccList[i + 1].getDepositCount(),
-												savingAccList[i + 1].getTransferCount(), savingAccList[i + 1].getBal(),
-												savingAccList[i + 1].getAccName(), savingAccList[i + 1].getCustomerInfo(), savingAccList[i + 1].getInterestRate());
+											cout << left << setw(20) << savingAccList[i].getID() << left << setw(40) << savingAccList[i].getAccName() << left << setw(20) << savingAccList[i].getBal() << endl;
+										}
+									}
+
+									cout << "Enter the name of the account you would like to delete: ";
+									cin.ignore();
+									getline(cin, accName);
+
+									for (int i = 0; i < savingAccCount; i++) //Find a name match for account
+									{
+										if (customerPtr == savingAccList[i].getCustomerInfo() && accName == savingAccList[i].getAccName())
+										{
+											accFound = true;
+											savingAccIndex = i;
+											break;
+										}
+									}
+
+									if (accFound)
+									{
+										cout << "Are you sure you want to delete " << checkingAccList[checkingAccIndex].getAccName() << "\"? (Y/N): "; //Confirm account deletion
+										cin >> confirmOpt;
+
+										while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N') //Input validation
+										{
+											cout << "Invalid response. Please selection an option Y/N: ";
+											cin >> confirmOpt;
+										}
+
+										if (confirmOpt == 'Y' || confirmOpt == 'y') //Delete checking account
+										{
+											if (checkingAccIndex < checkingAccCount - 1) //If the deleted account is not in the last index, move all the following accounts to fill the gap
+											{
+												for (int i = checkingAccIndex; i < checkingAccCount; i++)
+												{
+													checkingAccList[i].setAll(checkingAccList[i + 1].getID(), checkingAccList[i + 1].getWithdrawCount(), checkingAccList[i + 1].getDepositCount(),
+														checkingAccList[i + 1].getTransferCount(), checkingAccList[i + 1].getBal(),
+														checkingAccList[i + 1].getAccName(), checkingAccList[i + 1].getCustomerInfo(), checkingAccList[i + 1].getOverdraftLimit());
+												}
+											}
+											else
+											{
+												checkingAccList[checkingAccCount].setAll(0, 0, 0, 0, 0, "", nullptr, 0);
+											}
+											checkingAccCount--;
 										}
 									}
 									else
 									{
-										savingAccList[savingAccCount].setAll(0, 0, 0, 0, 0, "", nullptr, 0);
+										cout << "Error: Account does not exist or was not found." << endl;
 									}
-									savingAccCount--;
-								}
+								}							
+							}
 
-								cout << "Press 1 to make a new modification or 2 to return to main menu: ";
+							cout << "Press 1 to delete another account or 2 to return to main menu: ";
+							cin >> menuReturnOpt;
+							while (menuReturnOpt < 1 || menuReturnOpt > 2)
+							{
+								if (cin.fail())
+								{
+									cin.clear();
+									cin.ignore(numeric_limits<streamsize>::max(), '\n');
+								}
+								cout << "Error: Invalid option. Please select an option 1-2: ";
 								cin >> menuReturnOpt;
 							}
 						} while (menuReturnOpt == 1);
@@ -1522,10 +1695,9 @@ int main()
 			}
 
 			break;
-		case 4: //OPTION 4: View personal account info (WIP)
+		case 4: //OPTION 4: VIEW PERSONAL ACCOUNT INFO
 			system("cls");
-			cout << "---------------------------------------" << endl;
-
+			cout << "--------------------------------------------------------------" << endl;
 
 			if (totalCustomerCount == 0)
 			{
@@ -1570,7 +1742,7 @@ int main()
 					if (menuReturnOpt == 1) //Re-enter credentials
 					{
 						system("cls");
-						cout << "---------------------------------------" << endl;
+						cout << "--------------------------------------------------------------" << endl;
 						cout << "Please enter the following credentials: " << endl;
 						cout << "Enter customer last name: ";
 						cin >> lname;
@@ -1597,13 +1769,12 @@ int main()
 				if (customerFound == true) //If customer is found, show sub menu
 				{
 					system("cls");
-					
 
-					cout << "---------------------------------------" << endl;
+					cout << "--------------------------------------------------------------" << endl;
 					cout << "1. View general info" << endl;
 					cout << "2. View transaction history" << endl;
 					cout << "3. View account list" << endl;
-					cout << "---------------------------------------" << endl;
+					cout << "--------------------------------------------------------------" << endl;
 					cout << "Select one of the above options: ";
 					cin >> subMenuOpt;
 
@@ -1619,36 +1790,59 @@ int main()
 						cin >> subMenuOpt;
 					}
 
-					if (subMenuOpt == 1) //GENERAL INFO
+					if (subMenuOpt == 1) //SUB-OPTION 1: VIEW GENERAL INFO
 					{
 						system("cls");
-						cout << "---------------------------------------" << endl;
-						customerList[customerIndex].printInfoFull();
-						savingAccList[0].printInfo();
-						cout << "---------------------------------------" << endl;
+						cout << "--------------------------------------------------------------" << endl;
+						for (int i = 0; i < checkingAccCount; i++)
+						{
+
+						}
+	
+						cout << "--------------------------------------------------------------" << endl;
 					}
-					else if (subMenuOpt == 2) //TRANSACTION HISTORY
+					else if (subMenuOpt == 2) //SUB-OPTION2: TRANSACTION HISTORY
 					{
 
 						transactionIndex = 0;
+						cout << "---------------------------------------------------------------" << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getLname() << "'s Transaction History" << "---------------------------------------------------------------" << endl << endl;
+						cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Transaction Type" << left << setw(20) << "Amount" << left << setw(20) << "Snapshot Balance" << endl;
 						cout << "--------------------------------------------------------------" << endl;
-						cout << left << setw(40) << "Account Name" << left << setw(20) << "Transaction Type" << left << setw(20) << "Amount" << left << setw(20) << "Snapshot Balance" << endl; 
-						cout << "--------------------------------------------------------------" << endl;
-						cout << "This part is still under construction but will show a list of the customer's transactions." << endl;
+						for (int i = 0; i < transactionCount; i++)
+						{
+							if (customerPtr == transactionList[i].getCustomerInfo())
+							{
+								transactionList[i].printTransaction();
+							}
+						}
 					}
-					else //VIEW ACCOUNT LIST
+					else //SUB-OPTION 3: VIEW ACCOUNT LIST
 					{
 						system("cls");
 
-						cout << "-------------------------------CHEKCING ACCOUNTS--------------------------------" << endl; //Display all checking accounts
+						//Display all checking accounts
+						cout << "-------------------------------" << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getLname() << "'s Checking Accounts--------------------------------" << endl << endl;
 						cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
 						cout << "--------------------------------------------------------------" << endl;
-						
-
-						cout << "-------------------------------SAVING ACCOUNTS--------------------------------" << endl; //Display all saving accounts
+						for (int i = 0; i < checkingAccCount; i++) //Only display the customer's accounts
+						{
+							if (customerPtr == checkingAccList[i].getCustomerInfo())
+							{
+								cout << left << setw(20) << checkingAccList[i].getID() << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
+							}
+						}
+						//Display all saving accounts
+						cout << "-------------------------------" << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getLname() << "'s Saving Accounts--------------------------------" << endl;
 						cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
 						cout << "--------------------------------------------------------------" << endl;
-					
+						for (int i = 0; i < checkingAccCount; i++) //Only display the customer's accounts
+						{
+							if (customerPtr == checkingAccList[i].getCustomerInfo())
+							{
+								cout << left << setw(20) << checkingAccList[i].getID() << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
+							}
+						}
+						cout << "--------------------------------------------------------------" << endl;
 					}
 				}
 			}
@@ -1658,11 +1852,11 @@ int main()
 			cin.get();
 
 			break;
-		case 5: //OPTION 5: View all customers
+		case 5: //OPTION 5: VIEW ALL CUSTOMERS
 			system("cls");
 			cout << "-------------------------------------------------------------------------------------------------" << endl;
 
-			if (totalCustomerCount == 0)
+			if (totalCustomerCount == 0) //If there are no customers in the system, exit this menu
 			{
 				cout << "Error: There are no customers in the system." << endl;
 			}

@@ -7,6 +7,7 @@ Account::Account() {
 	depositCount = 0;
 	transferCount = 0;
 	bal = 0;
+	accName = "";
 	customerInfo = nullptr;
 }
 Account::Account(int _ID, int _withdrawCount, int _depositCount, int _transferCount, double _bal, string _accName, Customer* _customerInfo) {
@@ -84,7 +85,6 @@ void Account::setBal(double _bal)
 		bal = 0;
 	}
 }
-
 void Account::setAccName(string _accName)
 {
 	accName = _accName;
