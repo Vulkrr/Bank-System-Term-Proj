@@ -16,7 +16,7 @@ public:
 
 	double getInterestRate() const;
 
-	void payInterest();
+	void applyInterest();
 };
 
 #endif // !_SAVINGACCOUNT_
