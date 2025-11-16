@@ -917,8 +917,8 @@ int main()
 											{
 												checkingAccList[transferPullIndex].transfer(transferAmnt, checkingAccList[transferPushIndex]); //Transfer
 
-												Transaction t("Transfer", transferAmnt, checkingAccList[transferPullIndex].getBal()); //Create a new transaction object
-												transactionList.push_back(t); //Add the object to transaction list
+												//Transaction t("Transfer", transferAmnt, checkingAccList[transferPullIndex].getBal()); //Create a new transaction object
+												//transactionList.push_back(t); //Add the object to transaction list
 												transactionCount++; 
 											}										
 										}
@@ -962,8 +962,8 @@ int main()
 											{
 												checkingAccList[transferPullIndex].transfer(transferAmnt, checkingAccList[transferPushIndex]); //Transfer
 
-												Transaction t("Transfer", transferAmnt, checkingAccList[transferPullIndex].getBal()); //Create a new transaction object
-												transactionList.push_back(t); //Add the object to transaction list
+												//Transaction t("Transfer", transferAmnt, checkingAccList[transferPullIndex].getBal()); //Create a new transaction object
+												//transactionList.push_back(t); //Add the object to transaction list
 												transactionCount++;
 											}
 										}
@@ -1082,8 +1082,8 @@ int main()
 											{
 												savingAccList[transferPullIndex].transfer(transferAmnt, checkingAccList[transferPushIndex]); //Transfer
 
-												Transaction t("Transfer", transferAmnt, checkingAccList[transferPullIndex].getBal()); //Create a new transaction object
-												transactionList.push_back(t); //Add the object to transaction list
+												//Transaction t("Transfer", transferAmnt, checkingAccList[transferPullIndex].getBal()); //Create a new transaction object
+												//transactionList.push_back(t); //Add the object to transaction list
 												transactionCount++;
 											}
 										}
@@ -1127,8 +1127,8 @@ int main()
 											{
 												savingAccList[transferPullIndex].transfer(transferAmnt, savingAccList[transferPushIndex]); //Transfer
 
-												Transaction t("Transfer", transferAmnt, checkingAccList[transferPullIndex].getBal()); //Create a new transaction object
-												transactionList.push_back(t); //Add the object to transaction list
+												//Transaction t("Transfer", transferAmnt, checkingAccList[transferPullIndex].getBal()); //Create a new transaction object
+												//transactionList.push_back(t); //Add the object to transaction list
 												transactionCount++;
 											}
 										}
@@ -1207,8 +1207,8 @@ int main()
 								{
 									cout << " Congrats your debt has grown! (Not implemented)." << endl;
 
-									Transaction t("Loan", loanAmnt, checkingAccList[checkingAccIndex].getBal()); //Create a new transaction object
-									transactionList.push_back(t); //Add the object to transaction list
+									//Transaction t("Loan", loanAmnt, checkingAccList[checkingAccIndex].getBal()); //Create a new transaction object
+									//transactionList.push_back(t); //Add the object to transaction list
 									transactionCount++; //Increase transaction counter
 								}
 							}
