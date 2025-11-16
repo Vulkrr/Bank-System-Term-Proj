@@ -7,18 +7,20 @@ Transaction::Transaction()
 	transactionAmnt = 0;
 	snapshotBal = 0;
 }
-Transaction::Transaction(string _transactionType, double _transactionAmnt, double _snapshotBal)
+Transaction::Transaction(string _transactionType, double _transactionAmnt, double _snapshotBal, Customer* _customerInfo)
 {
 	transactionType = _transactionType;
 	setTransactionAmnt(_transactionAmnt);
 	setSnapshotBal(_snapshotBal);
+	customerInfo = _customerInfo;
 }
 
-void Transaction::setAll(string _transactionType, double _transactionAmnt, double _snapshotBal)
+void Transaction::setAll(string _transactionType, double _transactionAmnt, double _snapshotBal, Customer* _customerInfo)
 {
 	transactionType = _transactionType;
 	setTransactionAmnt(_transactionAmnt);
 	setSnapshotBal(_snapshotBal);
+	customerInfo = _customerInfo;
 }
 void Transaction::setTransactionType(string _transactionType)
 {
@@ -46,6 +48,10 @@ void Transaction::setSnapshotBal(double _snapshotBal)
 		_snapshotBal = 0;
 	}
 }
+void Transaction::setCustomerInfo(Customer* _customerInfo)
+{
+	customerInfo = _customerInfo;
+}
 
 string Transaction::getTransactionType() const
 {
@@ -59,7 +65,10 @@ double Transaction::getSnapshotBal() const
 {
 	return snapshotBal;
 }
-
+Customer* Transaction::getCustomerInfo() const
+{
+	return customerInfo;
+}
 
 void Transaction::printTransaction()
 {

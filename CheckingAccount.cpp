@@ -34,7 +34,7 @@ void CheckingAccount::withdraw(double _amount) {
 		if (bal >= _amount)
 		{
 			bal -= _amount;
-			cout << "You have successfully withdrawn $" << _amount << "." << endl;
+			cout << "Successfully withdrawn $" << _amount << " from " << accName << "." << endl;
 		}
 		else
 		{
@@ -45,7 +45,7 @@ void CheckingAccount::withdraw(double _amount) {
 				bal -= 20; //Overdraft fee
 				setOverdraftLimit(getOverdraftLimit() - overdraftAmount);
 				setWithdrawCount(getWithdrawCount() + 1);
-				cout << "You have successfully withdrawn $" << _amount << " with an overdraft of " << overdraftAmount << "." << endl;
+				cout << "Successfully withdrawn $" << _amount << "from " << accName << " with an overdraft of " << overdraftAmount << "." << endl;
 				cout << "A $20 overdraft fee has been charged to your account." << endl;
 				cout << "Balance: " << bal << endl;
 			}

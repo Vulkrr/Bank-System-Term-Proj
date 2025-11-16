@@ -128,29 +128,44 @@ void Account::deposit(double _amount)
 	if (_amount >= 0)
 	{
 		bal += _amount;
+		cout << "Successfully deposited $" << _amount << " to " << accName << "." << endl;
 		depositCount++;
+	}
+	else
+	{
+		cout << "Error: Cannot deposit a negative amount." << endl;
 	}
 }
 void Account::withdraw(double _amount)
 {
-	if (_amount >= 0 && _amount <= bal)
+	if (_amount >= 0)
 	{
-		bal -= _amount;
-		withdrawCount++;
+		if (_amount <= bal)
+		{
+			bal -= _amount;
+			cout << "Successfully withdrawn $" << _amount << " from " << accName << "." << endl;
+			withdrawCount++;
+		}
+		else
+		{
+			cout << "Error: Not enough funds in account." << endl;
+		}
 	}
 	else
 	{
-		cout << "You do not have enough funds to withdraw." << endl;
+		cout << "Error: Cannot withdraw a negative amount." << endl;
 	}
 }
 void Account::transfer(double _amount, Account& _destinationAccount)
 {
-	if (_amount > 0)
+	if (_amount >= 0)
 	{
 		if (_amount <= _destinationAccount.getBal())
 		{
 			bal += _destinationAccount.getBal();
 			_destinationAccount.setBal(_destinationAccount.getBal() - _amount);
+			cout << "Successfully transferred $" << _amount << " from " << accName << " to " << _destinationAccount.getAccName() << "." << endl;
+			transferCount++;
 		}
 		else
 		{

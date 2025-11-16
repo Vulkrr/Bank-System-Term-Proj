@@ -18,13 +18,13 @@ class Transaction {
 	Customer* customerInfo;
 public:
 	Transaction();
-	Transaction(string _transactionType, double _transactionAmnt, double _snapshotBal, Customer * customerInfo);
+	Transaction(string _transactionType, double _transactionAmnt, double _snapshotBal, Customer * _customerInfo);
 
-	void setAll(string _transactionType, double _transactionAmnt, double _snapshotBal, Customer* customerInfo);
+	void setAll(string _transactionType, double _transactionAmnt, double _snapshotBal, Customer* _customerInfo);
 	void setTransactionType(string _transactionType);
 	void setTransactionAmnt(double _transactionAmnt);
 	void setSnapshotBal(double _snapshotBal);
-	void setCustomerInfo(Customer* customerInfo);
+	void setCustomerInfo(Customer* _customerInfo);
 
 	string getTransactionType() const;
 	double getTransactionAmnt() const;
