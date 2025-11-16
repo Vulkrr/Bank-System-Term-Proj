@@ -8,9 +8,9 @@
 #include <vector>
 using namespace std;
 
-//Finish implementing transaction functions
-//Start working on transaction history
-//Put customer credentials into a miscfunction getCredentials()
+//Need to finish implementing customerPtr for account personalization
+//Need to display account ID in some parts
+//Need to remove checking/saving selection sub-menu and instead just display all of them per transaction
 
 int main()
 {
@@ -28,6 +28,9 @@ int main()
 	//Transaction history vector
 	vector<Transaction> transactionList;
 
+	//Customer pointer
+	Customer* customerPtr = nullptr;
+
 	//Counters/Indexes
 	int totalCustomerCount = 0, customerIndex = 0,
 		checkingAccCount = 0, checkingAccIndex = 0,
@@ -37,7 +40,7 @@ int main()
 		generalAccIndex = 0;
 
 	//Flags
-	bool customerFound = false, duplicateInfo = false;
+	bool customerFound = false, accFound = false, duplicateInfo = false;
 
 	//Option inputs
 	int mainMenuOpt, subMenuOpt, accTypeOpt, menuReturnOpt = 2, checkingAccOpt, savingAccOpt, generalAccOpt;
@@ -49,7 +52,7 @@ int main()
 	//Amount inputs
 	double depositAmnt, withdrawAmnt, transferAmnt;
 
-	//Miscfan 
+	//Misc
 	int uniqueID = 800;
 
 	do
@@ -245,10 +248,11 @@ int main()
 									getline(cin, accName);
 								}
 
-								checkingAccList[checkingAccCount].setAll((checkingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex], overdraftLimit); //Checking account creation
+								checkingAccList[checkingAccCount].setAll(uniqueID, 0, 0, 0, 0, accName, &customerList[customerIndex], overdraftLimit); //Checking account creation
 								cout << "-------------------------------------------------------------------------------------" << endl;
 								cout << "You have successfully created a checking account named " << "\"" << accName << "\"." << endl;
 								checkingAccCount++;
+								uniqueID++;
 							}
 							else //Create a saving account
 							{
@@ -263,9 +267,10 @@ int main()
 									getline(cin, accName);
 								}
 
-								savingAccList[savingAccCount].setAll((savingAccCount + 1), 0, 0, 0, 0, accName, &customerList[customerIndex], interestRateValue); //Saving account creation
+								savingAccList[savingAccCount].setAll(uniqueID, 0, 0, 0, 0, accName, &customerList[customerIndex], interestRateValue); //Saving account creation
 								cout << "You have successfully created a saving account named " << "\"" << accName << "\"." << endl;
 								savingAccCount++;
+								uniqueID++;
 							}
 							cout << "Press 1 to make a new account or 2 to return to main menu: ";
 							cin >> menuReturnOpt;
@@ -320,6 +325,7 @@ int main()
 						{
 							customerFound = true;
 							customerIndex = i;
+							customerPtr = &customerList[customerIndex];
 							break;
 						}
 					}
@@ -389,32 +395,35 @@ int main()
 								cin >> accTypeOpt;
 							}
 
-							if (accTypeOpt == 1)
+							if (accTypeOpt == 1) //DEPOSIT TO CHECKING ACCOUNT
 							{
+							
 								system("cls");
 
 								cout << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
 								cout << "--------------------------------------------------------------" << endl;
 								for (int i = 0; i < checkingAccCount; i++)
 								{
-									cout << i + 1 << ". " << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
+									if (customerPtr == checkingAccList[i].getCustomerInfo()) //Only display the customer's accounts
+									{
+										cout << left << setw(40) << checkingAccList[i].getAccName() << left << setw(20) << checkingAccList[i].getBal() << endl;
+									}
 								}
 								cout << "--------------------------------------------------------------" << endl;
 
-								cout << "Select an account to deposit to: ";  //Select a checking account
-								cin >> checkingAccOpt;
-								while (checkingAccOpt < 1 || checkingAccOpt >= checkingAccCount) //Input validation
+								cout << "Enter the name of the account to deposit to: ";  //Select a checking account
+								cin >> accName;
+
+								for (int i = 0; i < checkingAccCount; i++)
 								{
-									if (cin.fail())
+									if (customerPtr == checkingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName()) //Ensure the accounts belong to the current customer
 									{
-										cin.clear();
-										cin.ignore(numeric_limits<streamsize>::max(), '\n');
+										accFound = true;
+										checkingAccIndex = i;
+										break;
 									}
-									cout << "Error: Invalid option. Please select an option 1-2" << checkingAccCount - 1 << ": ";
-									cin >> checkingAccOpt;
 								}
 
-								checkingAccIndex = checkingAccOpt - 1;
 								system("cls");
 								cout << "Enter amount to deposit: "; //Enter deposit amount
 								cin >> depositAmnt;
@@ -457,7 +466,7 @@ int main()
 								cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
 								cin >> menuReturnOpt;
 							}
-							else
+							else //DEPOSIT TO SAVING ACCOUNT
 							{
 								system("cls");
 
@@ -1073,7 +1082,8 @@ int main()
 							cout << "Press 1 to make a new transaction or 2 to return to main menu: ";
 							cin >> menuReturnOpt;
 						}
-					} while (subMenuOpt != 5 || menuReturnOpt != 2);
+
+					} while (subMenuOpt != 5);
 				} 
 			}
 			customerFound = false; //Reset flag
@@ -1560,12 +1570,6 @@ int main()
 			cin.get();
 			break;
 		}
-
-		if (menuReturnOpt != 2)
-		{
-			break;
-		}
-
 	} while (mainMenuOpt != 6);
 
 	cout << "Toodles." << endl;

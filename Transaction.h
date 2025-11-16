@@ -15,18 +15,21 @@ This process can be put into a function in the transaction cpp file and called e
 class Transaction {
 	string transactionType; //The spelling and capitalization of this will be important for validation. It must be either "Withdrawal", "Deposit", or "Transfer" (we can add more later or change if needed)
 	double transactionAmnt, snapshotBal; //Snapshot balance will just save what the balance was at the time of transaction
+	Customer* customerInfo;
 public:
 	Transaction();
-	Transaction(string _transactionType, double _transactionAmnt, double _snapshotBal);
+	Transaction(string _transactionType, double _transactionAmnt, double _snapshotBal, Customer * customerInfo);
 
-	void setAll(string _transactionType, double _transactionAmnt, double _snapshotBal);
+	void setAll(string _transactionType, double _transactionAmnt, double _snapshotBal, Customer* customerInfo);
 	void setTransactionType(string _transactionType);
 	void setTransactionAmnt(double _transactionAmnt);
 	void setSnapshotBal(double _snapshotBal);
+	void setCustomerInfo(Customer* customerInfo);
 
 	string getTransactionType() const;
 	double getTransactionAmnt() const;
 	double getSnapshotBal() const;
+	Customer* getCustomerInfo() const;
 
 	void printTransaction();
 };
