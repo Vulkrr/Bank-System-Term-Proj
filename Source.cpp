@@ -41,7 +41,7 @@ int main()
 	bool customerFound = false, accFound = false, duplicateInfo = false, hasCheckingAcc = false, hasSavingAcc = false;
 
 	//Option inputs
-	int mainMenuOpt, subMenuOpt, accTypeOpt, menuReturnOpt = 2, checkingAccOpt, savingAccOpt, generalAccOpt;
+	int mainMenuOpt, subMenuOpt, accTypeOpt, menuReturnOpt = 2;
 	char confirmOpt;
 
 	//Info inputs
