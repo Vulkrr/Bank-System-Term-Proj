@@ -1203,30 +1203,28 @@ int main()
 									cout << "Invalid response. Please selection an option Y/N: ";
 									cin >> confirmOpt;
 								}
-
-							if (confirmOpt == 'Y' || confirmOpt == 'y')
-							{
-								if (loanChoice == 1) {
-									cout << " Congrats your debt has grown! " << endl;
-									checkingAccList[checkingAccIndex].deposit(loan1);
-								}
-								else if (loanChoice == 2) {
-									cout << " Congrats your debt has grown!" << endl;
-									checkingAccList[checkingAccIndex].deposit(loan2);
-								}
-								else if (loanChoice == 3) {
-									cout << " Congrats your debt has grown!" << endl;
-									checkingAccList[checkingAccIndex].deposit(loan3);
-								}
-								else {
-									cout << "An error has occured, please try again" << endl;
-								}
-
+								if (confirmOpt == 'Y' || confirmOpt == 'y')
+								{
+									if (loanChoice == 1) {
+										cout << " Congrats your debt has grown! " << endl;
+										checkingAccList[checkingAccIndex].deposit(loan1);
+									}
+									else if (loanChoice == 2) {
+										cout << " Congrats your debt has grown!" << endl;
+										checkingAccList[checkingAccIndex].deposit(loan2);
+									}
+									else if (loanChoice == 3) {
+										cout << " Congrats your debt has grown!" << endl;
+										checkingAccList[checkingAccIndex].deposit(loan3);
+									}
+									else {
+										cout << "An error has occured, please try again" << endl;
+									}
 									Transaction t("Loan", loanChoice, checkingAccList[checkingAccIndex].getBal(), customerPtr); //Create a new transaction object
 									transactionList.push_back(t); //Add the object to transaction list
 									transactionCount++; //Increase transaction counter
 								}
-							}
+							}							
 							else
 							{
 								cout << "Error: Account does not exist or was not found." << endl;
