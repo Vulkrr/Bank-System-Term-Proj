@@ -1156,7 +1156,7 @@ int main()
 								}
 							}
 							cout << "-------------------------------------------------------------------------------------" << endl;
-							cout << "Enter the name of the account to transfer to: ";
+							cout << "Enter the name of the account to apply a loan to: ";
 							cin >> accName;
 
 							for (int i = 0; i < checkingAccCount; i++) //Find a name match for the account
@@ -1172,40 +1172,40 @@ int main()
 							cout << "-------------------------------------------------------------------------------------" << endl;
 
 							if (accFound)
-{
-				int loanChoice;
-				double loan1 = 1000, loan2 = 25000, loan3 = 200000;
-				cout << "Opt 1: $1000 " << endl;
-				cout << "Opt 2: $25000" << endl;
-				cout << "Opt 3: $200,000" << endl;
-				cout << "-------------------------------------------------------------------------------------" << endl;
-				cout << "Select one of the above options by entering the loan amount: ";
+							{
+								int loanChoice;
+								double loan1 = 1000, loan2 = 25000, loan3 = 200000;
+								cout << "Opt 1: $1000 " << endl;
+								cout << "Opt 2: $25000" << endl;
+								cout << "Opt 3: $200,000" << endl;
+								cout << "-------------------------------------------------------------------------------------" << endl;
+								cout << "Select one of the above options by entering the loan amount: ";
 				
-				cin >> loanChoice;
-				while (loanChoice != 1 && loanChoice != 2 && loanChoice != 3) //Input validation
-				{
-								if (cin.fail())
+								cin >> loanChoice;
+								while (loanChoice != 1 && loanChoice != 2 && loanChoice != 3) //Input validation
 								{
-									cin.clear();
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
+									if (cin.fail())
+									{
+										cin.clear();
+										cin.ignore(numeric_limits<streamsize>::max(), '\n');
+									}
+									cout << "Error: Invalid option. Please select an option 1-3: ";
+									cin >> accTypeOpt;
+									cout << "Error: Incorrect Loan Selected." << endl;
+									cout << "Please select which loan you would like to add by entering the amount of the loan: ";
+
 								}
-								cout << "Error: Invalid option. Please select an option 1-3: ";
-								cin >> accTypeOpt;
-								cout << "Error: Incorrect Loan Selected." << endl;
-								cout << "Please select which loan you would like to add by entering the amount of the loan: ";
 
-				}
-
-				cout << "Are you sure you want to add loan" << loanChoice << " to " << checkingAccList[checkingAccIndex].getAccName() << "? (Y/N): ";
-				cin >> confirmOpt;
-				while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N') //Input validation
-				{
-								cout << "Invalid response. Please selection an option Y/N: ";
+								cout << "Are you sure you want to add loan" << loanChoice << " to " << checkingAccList[checkingAccIndex].getAccName() << "? (Y/N): ";
 								cin >> confirmOpt;
-				}
+								while (confirmOpt != 'y' && confirmOpt != 'Y' && confirmOpt != 'n' && confirmOpt != 'N') //Input validation
+								{
+									cout << "Invalid response. Please selection an option Y/N: ";
+									cin >> confirmOpt;
+								}
 
-				if (confirmOpt == 'Y' || confirmOpt == 'y')
-				{
+							if (confirmOpt == 'Y' || confirmOpt == 'y')
+							{
 								if (loanChoice == 1) {
 									cout << " Congrats your debt has grown! " << endl;
 									checkingAccList[checkingAccIndex].deposit(loan1);
