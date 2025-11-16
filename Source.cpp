@@ -1205,19 +1205,21 @@ int main()
 								}
 								if (confirmOpt == 'Y' || confirmOpt == 'y')
 								{
-									if (loanChoice == 1) {
-										cout << " Congrats your debt has grown! " << endl;
+									cout << " Congrats your debt has grown! " << endl;
+									if (loanChoice == 1) 
+									{									
 										checkingAccList[checkingAccIndex].deposit(loan1);
 									}
-									else if (loanChoice == 2) {
-										cout << " Congrats your debt has grown!" << endl;
+									else if (loanChoice == 2) 
+									{
 										checkingAccList[checkingAccIndex].deposit(loan2);
 									}
-									else if (loanChoice == 3) {
-										cout << " Congrats your debt has grown!" << endl;
+									else if (loanChoice == 3) 
+									{
 										checkingAccList[checkingAccIndex].deposit(loan3);
 									}
-									else {
+									else 
+									{
 										cout << "An error has occured, please try again" << endl;
 									}
 									Transaction t("Loan", loanChoice, checkingAccList[checkingAccIndex].getBal(), customerPtr); //Create a new transaction object
