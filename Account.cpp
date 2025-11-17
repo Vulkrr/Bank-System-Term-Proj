@@ -143,7 +143,7 @@ void Account::withdraw(double _amount)
 		if (_amount <= bal)
 		{
 			bal -= _amount;
-			cout << "Successfully withdrawn $" << _amount << " from " << accName << "." << endl;
+			cout << "Successfully withdrew $" << _amount << " from " << accName << "." << endl;
 			withdrawCount++;
 		}
 		else
