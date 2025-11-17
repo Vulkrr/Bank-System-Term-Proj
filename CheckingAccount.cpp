@@ -40,7 +40,7 @@ void CheckingAccount::withdraw(double _amount) {
 		{
 			if (abs(bal - _amount) <= overdraftLimit)
 			{
-				double overdraftAmount = abs(bal);
+				double overdraftAmount = abs(bal - _amount);
 				bal -= _amount;
 				bal -= 20; //Overdraft fee
 				setOverdraftLimit(getOverdraftLimit() - overdraftAmount);
