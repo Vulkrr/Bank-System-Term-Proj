@@ -35,5 +35,5 @@ double SavingAccount::getInterestRate() const
 
 void SavingAccount::applyInterest()
 {
-	bal -= bal * interestRate - bal;
+	bal *= interestRate;
 }

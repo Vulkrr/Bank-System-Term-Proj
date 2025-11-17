@@ -129,6 +129,7 @@ void Account::deposit(double _amount)
 	{
 		bal += _amount;
 		cout << "Successfully deposited $" << _amount << " to " << accName << "." << endl;
+		cout << "Account balance: $" << bal << endl;
 		depositCount++;
 	}
 	else
@@ -144,6 +145,7 @@ void Account::withdraw(double _amount)
 		{
 			bal -= _amount;
 			cout << "Successfully withdrew $" << _amount << " from " << accName << "." << endl;
+			cout << "Account balance: $" << bal << endl;
 			withdrawCount++;
 		}
 		else
@@ -160,11 +162,12 @@ void Account::transfer(double _amount, Account& _destinationAccount)
 {
 	if (_amount >= 0)
 	{
-		if (_amount <= _destinationAccount.getBal())
+		if (_amount <= bal)
 		{
-			bal += _destinationAccount.getBal();
-			_destinationAccount.setBal(_destinationAccount.getBal() - _amount);
+			bal -= _amount;
+			_destinationAccount.setBal(_destinationAccount.getBal() + _amount);
 			cout << "Successfully transferred $" << _amount << " from " << accName << " to " << _destinationAccount.getAccName() << "." << endl;
+			cout << "Account balance: $" << bal << endl;
 			transferCount++;
 		}
 		else

@@ -6,11 +6,11 @@ Customer::Customer() {
 	fname = "";
 	lname = "";
 	address = "";
-	phoneNumber = 0;
+	phoneNumber = "";
 	formattedPhoneNumber = "";
 	email = "";
 }
-Customer::Customer(string _fname, string _lname, string _address, int _phone, string _email) {
+Customer::Customer(string _fname, string _lname, string _address, string _phone, string _email) {
 	fname = _fname;
 	lname = _lname;
 	address = _address;
@@ -18,7 +18,7 @@ Customer::Customer(string _fname, string _lname, string _address, int _phone, st
 	email = _email;
 }
 
-void Customer::setAll(string _fname, string _lname, string _address, int _phone, string _email) {
+void Customer::setAll(string _fname, string _lname, string _address, string _phone, string _email) {
 	setFname(_fname);
 	setLname(_lname);
 	setAddress(_address);
@@ -34,15 +34,14 @@ void Customer::setLname(string _lname) {
 void Customer::setAddress(string _address) {
 	address = _address;
 }
-void Customer::setPhone(int _phone) {
-	string tempPhone = to_string(_phone);
-	if (tempPhone.length() == 10) {
+void Customer::setPhone(string _phone) {
+	if (_phone.length() == 10) {
 		phoneNumber = _phone;
 	}
 	else {
-		phoneNumber = 0;
+		phoneNumber = "0000000000";
 	}
-	formattedPhoneNumber = tempPhone.substr(0, 3) + "-" + tempPhone.substr(3, 3) + "-" + tempPhone.substr(6);
+	formattedPhoneNumber = phoneNumber.substr(0, 3) + "-" + phoneNumber.substr(3, 3) + "-" + phoneNumber.substr(6);
 }
 void Customer::setEmail(string _email) {
 	email = _email;
@@ -57,7 +56,7 @@ string Customer::getLname() const {
 string Customer::getAddress() const {
 	return address;
 }
-int Customer::getPhone() const {
+string Customer::getPhone() const {
 	return phoneNumber;
 }
 string Customer::getEmail() const {
@@ -68,7 +67,7 @@ void Customer::printInfoFull() {
 
 	cout << "Name: " << fname << " " << lname << endl;
 	cout << "Address: " << address << endl;
-	cout << "Phone #: " << to_string(phoneNumber).substr(0, 3) << "-" << to_string(phoneNumber).substr(3, 3) << left << "-" << to_string(phoneNumber).substr(7) << endl;
+	cout << "Phone #: " << formattedPhoneNumber << endl;
 	cout << "Email: " << email << endl;
 }
 
