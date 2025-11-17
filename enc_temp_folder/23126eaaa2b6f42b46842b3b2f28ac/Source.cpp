@@ -858,15 +858,18 @@ int main()
 								cout << "----------------------------------------------------------------" << endl;
 								int generalAccCount = 0;
 
-								for (int i = 0; i < generalAccCount; i++) //Ensure that the customer has at least 2 accounts to make transfers
+								for (int i = 0; i < savingAccCount; i++) //Ensure that the customer has at least 2 accounts to make transfers
 								{
-									if (customerPtr == checkingAccList[i].getCustomerInfo())
+									if (customerPtr == savingAccList[i].getCustomerInfo())
 									{
 										generalAccCount++;
 										break;
 									}
+								}
 
-									if (customerPtr == savingAccList[i].getCustomerInfo())
+								for (int i = 0; i < checkingAccCount; i++) //Ensure that the customer has at least 2 accounts to make transfers
+								{
+									if (customerPtr == checkingAccList[i].getCustomerInfo())
 									{
 										generalAccCount++;
 										break;
@@ -2222,6 +2225,11 @@ int main()
 									savingAccList[i].applyInterest();
 								}
 							}
+
+							system("cls");
+							cout << "========================APPLY INTEREST==========================" << endl << endl;
+							cout << "----------------------------------------------------------------" << endl;
+							cout << "Successfully applied interest to " << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getLname() << "'s savings." << endl;
 						}
 					}
 					else

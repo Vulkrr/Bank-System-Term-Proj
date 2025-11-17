@@ -139,6 +139,11 @@ int main()
 					duplicateInfo = false;
 					cout << "Enter customer phone number (digits only): ";
 					cin >> phoneNumber;
+					while (phoneNumber.length() < 10 || phoneNumber.length() > 10)
+					{
+						cout << "----------------------------------------------------------------" << endl;
+						cout << "Error: Phone number must be 10 digits." << endl;
+					}
 					for (int i = 0; i < totalCustomerCount; i++)
 					{
 						if (phoneNumber == customerList[i].getPhone())
