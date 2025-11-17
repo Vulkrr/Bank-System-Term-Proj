@@ -2225,6 +2225,11 @@ int main()
 									savingAccList[i].applyInterest();
 								}
 							}
+
+							system("cls");
+							cout << "========================APPLY INTEREST==========================" << endl << endl;
+							cout << "----------------------------------------------------------------" << endl;
+							cout << "Successfully applied interest to " << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getLname() << "'s savings." << endl;
 						}
 					}
 					else
