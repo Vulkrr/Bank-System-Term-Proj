@@ -239,11 +239,11 @@ int main()
 								do
 								{
 									duplicateInfo = false;
-									cout << "Enter a name for this account: ";
+									cout << "Enter a name for this account: (No spaces or special characters) ";
 									getline(cin, accName);
 									while (accName.length() > accNameLimit) //Input validation
 									{
-										cout << "Error: Account name must be 30 characters or less. Please try again." << endl;
+										cout << "Error: Account name must be 30 characters or less and contain no special characters or spaces. Please try again." << endl;
 										cout << "Enter a name for this account: ";
 										getline(cin, accName);
 									}
