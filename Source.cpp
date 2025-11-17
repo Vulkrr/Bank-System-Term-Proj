@@ -45,7 +45,8 @@ int main()
 	char confirmOpt;
 
 	//Info inputs
-	string fname, lname, address, email, phoneNumber, accName;
+	string fname, lname, address, email, accName;
+	int phoneNumber;
 
 	//Amount inputs
 	double depositAmnt, withdrawAmnt, transferAmnt;
@@ -139,11 +140,16 @@ int main()
 					duplicateInfo = false;
 					cout << "Enter customer phone number (digits only): ";
 					cin >> phoneNumber;
-					while (phoneNumber.length() < 10 || phoneNumber.length() > 10)
+					while (to_string(phoneNumber).length() < 10 || to_string(phoneNumber).length() > 10 || cin.fail())
 					{
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						cout << "----------------------------------------------------------------" << endl;
-						cout << "Error: Phone number must be 10 digits." << endl;
+						cout << "Error: Invalid phone number." << endl;
+						cout << "Enter customer phone number (digits only): ";
+						cin >> phoneNumber;
 					}
+					
 					for (int i = 0; i < totalCustomerCount; i++)
 					{
 						if (phoneNumber == customerList[i].getPhone())
@@ -155,10 +161,11 @@ int main()
 						}
 					}
 				} while (duplicateInfo);
+				cin.ignore();
 				do //Ensure there are no duplicate emails
 				{
 					duplicateInfo = false;
-					cout << "Enter customer email: ";
+					cout << "Enter customer email: ";				
 					cin >> email;
 					for (int i = 0; i < totalCustomerCount; i++)
 					{
