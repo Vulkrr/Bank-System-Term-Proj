@@ -105,12 +105,12 @@ int main()
 				cin >> subMenuOpt;
 			}
 			system("cls");
-			
+
 			if (subMenuOpt == 1) //CREATE A NEW CUSTOMER PROFILE
 			{
-				
+
 				cout << "====================CREATE A CUSTOMER PROFILE===================" << endl << endl;
-				
+
 				cout << "Please enter the following information for the new customer:" << endl;
 				cout << "----------------------------------------------------------------" << endl;
 				cout << "Enter customer first name: ";
@@ -170,7 +170,7 @@ int main()
 				customerList[totalCustomerCount].setAll(fname, lname, address, phoneNumber, email); //Add customer to system
 				system("cls");
 				cout << "====================CREATE A CUSTOMER PROFILE===================" << endl << endl;
-		
+
 				cout << "Customer successfully added to system." << endl;
 				cout << "----------------------------------------------------------------" << endl;
 				totalCustomerCount++;
@@ -208,8 +208,8 @@ int main()
 						cout << "========================CREATE AN ACCOUNT=======================" << endl << endl;
 
 						if (customerFound == false) //If customer isn't found, prompt user to try again or exit
-						{		
-							cout << "Error: Customer does not exist or was not found." << endl; 
+						{
+							cout << "Error: Customer does not exist or was not found." << endl;
 							cout << "----------------------------------------------------------------" << endl;
 							cout << "Press 1 to try again or 2 to return to main menu: ";
 							cin >> menuReturnOpt;
@@ -232,7 +232,7 @@ int main()
 						}
 					} while (customerFound == false);
 
-					if (customerFound) 
+					if (customerFound)
 					{
 						do
 						{
@@ -266,10 +266,11 @@ int main()
 								do
 								{
 									duplicateInfo = false;
-									cout << "Enter a name for this account: (No spaces or special characters) ";
+									cout << "Enter a name for this account: ";
 									getline(cin, accName);
 									while (accName.length() > accNameLimit) //Input validation
 									{
+										cout << "----------------------------------------------------------------" << endl;
 										cout << "Error: Account name must be 30 characters or less. Please try again." << endl;
 										cout << "Enter a name for this account: ";
 										getline(cin, accName);
@@ -277,7 +278,7 @@ int main()
 
 									for (int i = 0; i < checkingAccCount; i++) //Ensure there are no checking account name duplicates
 									{
-										if (customerPtr == checkingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName()) 
+										if (customerPtr == checkingAccList[i].getCustomerInfo() && accName == checkingAccList[i].getAccName())
 										{
 											duplicateInfo = true;
 											cout << "----------------------------------------------------------------" << endl;
@@ -297,7 +298,7 @@ int main()
 										}
 									}
 								} while (duplicateInfo);
-								
+
 								system("cls");
 								cout << "========================CREATE AN ACCOUNT=======================" << endl << endl;
 
@@ -459,12 +460,12 @@ int main()
 							break;
 						}
 					}
-				
+
 					if (hasCheckingAcc || hasSavingAcc)
 					{
 						do
-						{		
-							system("cls"); 
+						{
+							system("cls");
 							cout << "========================TRANSACTION MENU========================" << endl << endl; //TRANSACTION SUB-MENU
 							cout << "----------------------------------------------------------------" << endl;
 							cout << "1. Deposit" << endl;
@@ -513,7 +514,7 @@ int main()
 								{
 									cout << "=============================DEPOSIT============================" << endl << endl;
 									cout << "----------------------------------------------------------------" << endl;
-									cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; 
+									cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
 									cout << "----------------------------------------------------------------" << endl;
 
 									for (int i = 0; i < checkingAccCount; i++) //Display checking accounts
@@ -542,7 +543,7 @@ int main()
 									cout << "=============================DEPOSIT============================" << endl << endl;
 									cout << "----------------------------------------------------------------" << endl;
 									if (accFound)
-									{									
+									{
 										cout << "Enter amount to deposit: ";
 										cin >> depositAmnt;
 										while (depositAmnt < 0) //Input validation
@@ -615,12 +616,12 @@ int main()
 											break;
 										}
 									}
-								
+
 									system("cls");
 									cout << "=============================DEPOSIT============================" << endl << endl;
 									cout << "----------------------------------------------------------------" << endl;
 									if (accFound)
-									{									
+									{
 										cout << "Enter amount to deposit: ";
 										cin >> depositAmnt;
 										while (depositAmnt < 0) //Input validation
@@ -687,7 +688,7 @@ int main()
 
 								system("cls");
 								if (accTypeOpt == 1) //WITHDRAW FROM CHECKING
-								{									
+								{
 									cout << "=============================WITHDRAW===========================" << endl << endl;
 									cout << "----------------------------------------------------------------" << endl;
 									cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display checking accounts
@@ -719,7 +720,7 @@ int main()
 									cout << "=============================WITHDRAW===========================" << endl << endl;
 									cout << "----------------------------------------------------------------" << endl;
 									if (accFound)
-									{										
+									{
 										cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display selected checking account
 										cout << "----------------------------------------------------------------" << endl;
 										cout << left << setw(20) << checkingAccList[checkingAccIndex].getID() << left << setw(40) << checkingAccList[checkingAccIndex].getAccName() << left << setw(20) << checkingAccList[checkingAccIndex].getBal() << endl;
@@ -801,7 +802,7 @@ int main()
 									cout << "----------------------------------------------------------------" << endl;
 									if (accFound)
 									{
-										
+
 										cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display selected checking account
 										cout << "----------------------------------------------------------------" << endl;
 										cout << left << setw(20) << savingAccList[savingAccIndex].getID() << left << setw(40) << savingAccList[savingAccIndex].getAccName() << left << setw(20) << savingAccList[savingAccIndex].getBal() << endl;
@@ -822,7 +823,7 @@ int main()
 										}
 
 										system("cls");
-										cout << "=============================WITHDRAW===========================" << endl << endl;										
+										cout << "=============================WITHDRAW===========================" << endl << endl;
 										cout << "----------------------------------------------------------------" << endl;
 										cout << "Are you sure you want to withdraw $" << withdrawAmnt << " from " << accName << "? (Y/N): "; //Withdrawal confirmation
 										cin >> confirmOpt;
@@ -853,7 +854,7 @@ int main()
 							}
 							else if (subMenuOpt == 3) //SUB-OPTION 3: TRANSFER
 							{
-								cout << "=============================TRANSFER===========================" << endl << endl; 
+								cout << "=============================TRANSFER===========================" << endl << endl;
 								cout << "----------------------------------------------------------------" << endl;
 								int generalAccCount = 0;
 
@@ -871,9 +872,9 @@ int main()
 										break;
 									}
 								}
-								
+
 								if (generalAccCount >= 2)
-								{														
+								{
 									cout << "1. Checking" << endl;
 									cout << "2. Saving" << endl;
 									cout << "----------------------------------------------------------------" << endl;
@@ -896,7 +897,7 @@ int main()
 									cout << "----------------------------------------------------------------" << endl;
 									if (accTypeOpt == 1) //TRANSFER FROM CHECKING
 									{
-										cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; 
+										cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
 										cout << "----------------------------------------------------------------" << endl;
 										for (int i = 0; i < checkingAccCount; i++) //Display checking accounts
 										{
@@ -924,7 +925,7 @@ int main()
 										cout << "=============================TRANSFER===========================" << endl << endl;
 										cout << "----------------------------------------------------------------" << endl;
 										if (accFound)
-										{											
+										{
 											cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; //Display selected checking account
 											cout << "-------------------------------------------------------------------------------------" << endl;
 											cout << left << setw(20) << checkingAccList[transferPullIndex].getID() << left << setw(40) << checkingAccList[transferPullIndex].getAccName() << left << setw(20) << checkingAccList[transferPullIndex].getBal() << endl;
@@ -953,11 +954,11 @@ int main()
 
 											system("cls");
 											cout << "=============================TRANSFER===========================" << endl << endl; //Transfer push selection
-											cout << "----------------------------------------------------------------" << endl;											
+											cout << "----------------------------------------------------------------" << endl;
 											cout << "1. Checking" << endl;
 											cout << "2. Saving" << endl;
 											cout << "----------------------------------------------------------------" << endl;
-											cout << "Select which type of account to transfer to: " << endl; 
+											cout << "Select which type of account to transfer to: " << endl;
 											cin >> accTypeOpt;
 											while (accTypeOpt < 1 || accTypeOpt > 2) //Input validation
 											{
@@ -972,11 +973,11 @@ int main()
 											}
 
 											system("cls");
-											cout << "=============================TRANSFER===========================" << endl << endl; 
+											cout << "=============================TRANSFER===========================" << endl << endl;
 											cout << "----------------------------------------------------------------" << endl;
 											if (accTypeOpt == 1) //TRANSFER FROM CHECKING TO CHECKING
-											{								
-												cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; 
+											{
+												cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
 												cout << "----------------------------------------------------------------" << endl;
 												for (int i = 0; i < checkingAccCount; i++) //Display checking accounts
 												{
@@ -1026,7 +1027,7 @@ int main()
 											}
 											else //TRANSFER FROM CHECKING TO SAVING
 											{
-												cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; 
+												cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
 												cout << "----------------------------------------------------------------" << endl;
 												for (int i = 0; i < savingAccCount; i++) //Display saving accounts
 												{
@@ -1063,7 +1064,7 @@ int main()
 												{
 													system("cls");
 													cout << "=============================TRANSFER===========================" << endl << endl;
-													
+
 													cout << "----------------------------------------------------------------" << endl;
 													checkingAccList[transferPullIndex].transfer(transferAmnt, checkingAccList[transferPushIndex]); //Transfer
 													cout << endl;
@@ -1404,13 +1405,13 @@ int main()
 				cout << "Error: There are no customers in the system." << endl << endl;
 				cout << "Press any key to return to menu: ";
 				cin.ignore();
-				cin.get();		 
+				cin.get();
 			}
 			customerFound = false; //Reset flag
 
 			break;
 		case 3: //OPTION 3: MODIFY OR DELETE ACCOUNTS
-			if (totalCustomerCount > 0) 
+			if (totalCustomerCount > 0)
 			{
 				do
 				{
@@ -1482,7 +1483,7 @@ int main()
 
 					system("cls");
 					cout << "===================MODIFY OR DELETE ACCOUNTS====================" << endl << endl; //Display sub menu
-					cout << "----------------------------------------------------------------" << endl; 
+					cout << "----------------------------------------------------------------" << endl;
 					cout << "1. Change an account name" << endl;
 					cout << "2. Delete an account" << endl;
 					cout << "----------------------------------------------------------------" << endl;
@@ -1501,9 +1502,9 @@ int main()
 						cin >> subMenuOpt;
 					}
 
-					
+
 					if (subMenuOpt == 1) //SUB-OPTION 1: CHANGE AN ACCOUNT NAME
-					{		
+					{
 						do
 						{
 							system("cls");
@@ -1735,7 +1736,7 @@ int main()
 								if (hasCheckingAcc)
 								{
 									cout << "-------------------------------" << customerList[customerIndex].getFname() << " " << customerList[customerIndex].getLname() << "'s Checking Accounts--------------------------------" << endl;
-									cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl; 
+									cout << left << setw(20) << "Account ID" << left << setw(40) << "Account Name" << left << setw(20) << "Balance" << endl;
 									cout << "----------------------------------------------------------------" << endl;
 									for (int i = 0; i < checkingAccCount; i++) //Display checking accounts
 									{
@@ -1793,7 +1794,7 @@ int main()
 											else
 											{
 												checkingAccList[checkingAccIndex].setAll(0, 0, 0, 0, 0, "", nullptr, 0);
-											}										
+											}
 											checkingAccCount--;
 										}
 									}
@@ -1911,7 +1912,7 @@ int main()
 				cout << "Error: There are no customers in the system." << endl << endl;
 				cout << "Press any key to return to menu: ";
 				cin.ignore();
-				cin.get();				
+				cin.get();
 			}
 
 			break;
@@ -1923,7 +1924,7 @@ int main()
 					system("cls");
 					cout << "==================VIEW PERSONAL CUSTOMER INFO===================" << endl << endl;
 					cout << "Please enter the following customer credentials:" << endl; //Get credentials
-					cout << "----------------------------------------------------------------" << endl;		
+					cout << "----------------------------------------------------------------" << endl;
 					cout << "Enter customer last name: ";
 					cin >> lname;
 					cout << "Enter customer phone number (digits only): ";
@@ -2025,7 +2026,7 @@ int main()
 					}
 					else if (subMenuOpt == 2) //SUB-OPTION2: TRANSACTION HISTORY
 					{
-						system("cls");				
+						system("cls");
 						cout << "=======================TRANSACTION HISTORY======================" << endl << endl;
 
 						for (int i = 0; i < transactionCount; i++) //Ensure the customer has transactions
@@ -2061,7 +2062,7 @@ int main()
 					{
 						system("cls");
 						cout << "===========================ACCOUNT LIST=========================" << endl << endl;
-					
+
 						if (hasCheckingAcc)
 						{
 							//Display all checking accounts
@@ -2106,7 +2107,7 @@ int main()
 				system("cls");
 				cout << "==================VIEW PERSONAL CUSTOMER INFO===================" << endl << endl;
 				cout << "----------------------------------------------------------------" << endl;
-				cout << "Error: There are no customers in the system." << endl;			
+				cout << "Error: There are no customers in the system." << endl;
 			}
 
 			cout << endl << "Press any key to return to menu: ";
@@ -2116,7 +2117,7 @@ int main()
 			break;
 		case 5: //OPTION 5: VIEW ALL CUSTOMERS
 			system("cls");
-			cout << "=========================CUSTOMER LIST==========================" << endl << endl;	
+			cout << "=========================CUSTOMER LIST==========================" << endl << endl;
 			cout << "----------------------------------------------------------------" << endl;
 
 			if (totalCustomerCount > 0) //If there are no customers in the system, exit this menu
@@ -2131,7 +2132,7 @@ int main()
 			}
 			else
 			{
-				cout << "Error: There are no customers in the system." << endl;		
+				cout << "Error: There are no customers in the system." << endl;
 			}
 
 			cout << "Press any key to return to menu: ";
@@ -2146,7 +2147,7 @@ int main()
 					system("cls");
 					cout << "========================APPLY INTEREST==========================" << endl << endl;
 					cout << "Please enter the following customer credentials:" << endl; //Get credentials
-					cout << "----------------------------------------------------------------" << endl;	
+					cout << "----------------------------------------------------------------" << endl;
 					cout << "Enter customer last name: ";
 					cin >> lname;
 					cout << "Enter customer phone number (digits only): ";
@@ -2234,7 +2235,7 @@ int main()
 				system("cls");
 				cout << "========================APPLY INTEREST==========================" << endl << endl;
 				cout << "----------------------------------------------------------------" << endl;
-				cout << "Error: There are no customers in the system." << endl;				
+				cout << "Error: There are no customers in the system." << endl;
 			}
 
 			cout << endl << "Press any key to return to menu: ";
